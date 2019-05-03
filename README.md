@@ -36,3 +36,5 @@ This is the software needed to make the config usable.
 
 - [GNU Stow](https://www.gnu.org/software/stow/) - [package](https://www.archlinux.org/packages/community/any/stow/)
 - [playerctl](https://github.com/acrisci/playerctl) - [package](https://www.archlinux.org/packages/community/x86_64/playerctl/)
+- [fzf](https://github.com/junegunn/fzf) - [package](https://www.archlinux.org/packages/community/x86_64/fzf/)
+- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) - [package](https://www.archlinux.org/packages/community/x86_64/the_silver_searcher/)
