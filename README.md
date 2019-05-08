@@ -38,3 +38,5 @@ This is the software needed to make the config usable.
 - [playerctl](https://github.com/acrisci/playerctl) - [package](https://www.archlinux.org/packages/community/x86_64/playerctl/)
 - [fzf](https://github.com/junegunn/fzf) - [package](https://www.archlinux.org/packages/community/x86_64/fzf/)
 - [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) - [package](https://www.archlinux.org/packages/community/x86_64/the_silver_searcher/)
+- [Patched Input Font](http://input.fontbureau.com/) - [package](https://aur.archlinux.org/packages/ttf-nerd-fonts-input/)
+- [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) - [package](https://www.archlinux.org/packages/community/x86_64/rxvt-unicode/)

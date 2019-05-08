@@ -1,0 +1,14 @@
+URxvt.saveLines: 2000
+URxvt.scrollBar: false
+URxvt.internalBorder: 20
+URxvt.depth: 32
+URxvt.secondaryScroll: true
+URxvt.font: xft:InputMono Nerd Font:pixelsize=20:antialias=true
+URxvt.perl-ext-common: default,matcher,selection-to-clipboard
+URxvt.urlLauncher: firefox
+URxvt.matcher.button: 1
+URxvt.tabbed.saveLines: 2000
+URxvt.tabbed.scrollBar: false
+URxvt.tabbed.secondaryScroll: true
+URxvt.tabbed.font: xft:InputMono Nerd Font:pixelsize=20:antialias=true
+URxvt.intensityStyles: false#Xft.dpi: 288
