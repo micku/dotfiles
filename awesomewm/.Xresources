@@ -26,5 +26,3 @@
 ! white
 *.color7:       #c0c5ce
 *.color15:      #eff1f5
-
-#include ".Xresources.d/rxvt-unicode"
