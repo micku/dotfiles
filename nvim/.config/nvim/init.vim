@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 "End vim-plug Scripts-------------------------
