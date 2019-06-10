@@ -12,6 +12,10 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Freedesktop menu
 local freedesktop = require("freedesktop")
+-- Hidpi
+local dpi   = require("beautiful.xresources").apply_dpi
+-- Lain
+local lain  = require("lain")
 -- Enable VIM help for hotkeys widget when client with matching name is opened:
 require("awful.hotkeys_popup.keys.vim")
 
@@ -40,12 +44,14 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/cesious/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/mic/theme.lua")
+--beautiful.init("/usr/share/awesome/themes/cesious/theme.lua")
 beautiful.icon_theme        = "Papirus-Dark"
 beautiful.bg_normal         = "#141A1B"
 beautiful.bg_focus          = "#222B2E"
 beautiful.font              = "Noto Sans Regular 10"
 beautiful.notification_font = "Noto Sans Bold 14"
+beautiful.useless_gap       = dpi(3)
 
 -- This is used later as the default terminal and editor to run.
 browser = "exo-open --launch WebBrowser" or "firefox"
@@ -111,11 +117,12 @@ myexitmenu = {
     { "shutdown", "poweroff", menubar.utils.lookup_icon("system-shutdown") }
 }
 mymainmenu = freedesktop.menu.build({
-    icon_size = 32,
+    icon_size = dpi(32),
     before = {
         { "Terminal", terminal, menubar.utils.lookup_icon("utilities-terminal") },
         { "Browser", browser, menubar.utils.lookup_icon("internet-web-browser") },
         { "Files", filemanager, menubar.utils.lookup_icon("system-file-manager") },
+        { "Asd", filemanager, menubar.utils.lookup_icon("system-file-manager") },
         -- other triads can be put here
     },
     after = {
@@ -124,22 +131,17 @@ mymainmenu = freedesktop.menu.build({
         -- other triads can be put here
     }
 })
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
+--mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+                                     --menu = mymainmenu })
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock("%H:%M ")
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
 darkblue    = beautiful.bg_focus
 blue        = "#9EBABA"
 red         = "#EB8F8F"
-separator = wibox.widget.textbox(' <span color="' .. blue .. '">| </span>')
 spacer = wibox.widget.textbox(' <span color="' .. blue .. '"> </span>')
 
 -- Create a wibox for each screen and add it
@@ -205,47 +207,13 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
+    local names = { "COM", "DE1", "DE2", "DE3", "DE4", "DE5", "DE6", "BRW", "CHT" }
+    local l = awful.layout.suit  -- Just to save some typing: use an alias.
+    local layouts = { l.tile, l.tile, l.tile, l.tile, l.tile,
+        l.tile, l.tile, l.tile, l.tile }
+    awful.tag(names, s, layouts)
 
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
-	
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
-
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-            separator,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            mykeyboardlayout,
-            separator,
-            mytextclock,
-            s.mylayoutbox,
-        },
-    }
+    beautiful.at_screen_connect(s)
 end)
 -- }}}
 
@@ -262,9 +230,19 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey,           }, "Left",
+              function()
+                  for i = 1, screen.count() do
+                      awful.tag.viewprev(screen[i])
+                  end
+              end,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey,           }, "Right",
+              function()
+                  for i = 1, screen.count() do
+                      awful.tag.viewnext(screen[i])
+                  end
+              end,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
@@ -427,10 +405,12 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
-                        if tag then
-                           tag:view_only()
+                        for s = 1, screen.count() do
+                             -- local screen = awful.screen.focused()
+                             local tag = screen[s].tags[i]
+                             if tag then
+                                tag:view_only()
+                             end
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
@@ -468,6 +448,10 @@ for i = 1, 9 do
                   {description = "toggle focused client on tag #" .. i, group = "tag"})
     )
 end
+globalkeys = gears.table.join(globalkeys,
+    awful.key({ modkey, "Shift" }, "r", function () lain.util.rename_tag() end,
+                  {description = "rename tag", group = "tag"})
+)
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise()
@@ -522,11 +506,6 @@ awful.rules.rules = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
-
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" } },
-      properties = { titlebars_enabled = true }
-    },
 	
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
@@ -551,6 +530,8 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    --c.shape = gears.shape.rounded_rect
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -648,6 +629,7 @@ for s = 1, screen.count() do screen[s]:connect_signal("arrange", function ()
   end
 end)
 end
+
 
 -- }}}
 
