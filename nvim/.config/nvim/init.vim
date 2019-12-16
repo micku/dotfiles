@@ -14,6 +14,7 @@ Plug 'tpope/vim-vinegar'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 call plug#end()
 "End vim-plug Scripts-------------------------
