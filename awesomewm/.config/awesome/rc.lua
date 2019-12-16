@@ -122,7 +122,6 @@ mymainmenu = freedesktop.menu.build({
         { "Terminal", terminal, menubar.utils.lookup_icon("utilities-terminal") },
         { "Browser", browser, menubar.utils.lookup_icon("internet-web-browser") },
         { "Files", filemanager, menubar.utils.lookup_icon("system-file-manager") },
-        { "Asd", filemanager, menubar.utils.lookup_icon("system-file-manager") },
         -- other triads can be put here
     },
     after = {
@@ -230,19 +229,9 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",
-              function()
-                  for i = 1, screen.count() do
-                      awful.tag.viewprev(screen[i])
-                  end
-              end,
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",
-              function()
-                  for i = 1, screen.count() do
-                      awful.tag.viewnext(screen[i])
-                  end
-              end,
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
@@ -405,12 +394,10 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        for s = 1, screen.count() do
-                             -- local screen = awful.screen.focused()
-                             local tag = screen[s].tags[i]
-                             if tag then
-                                tag:view_only()
-                             end
+                        local screen = awful.screen.focused()
+                        local tag = screen.tags[i]
+                        if tag then
+                           tag:view_only()
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
