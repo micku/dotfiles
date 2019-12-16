@@ -182,3 +182,13 @@ eval "$(pyenv virtualenv-init -)"
 
 # Node Version Manager
 [[ -f "/usr/share/nvm/init-nvm.sh" ]] && source /usr/share/nvm/init-nvm.sh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh
