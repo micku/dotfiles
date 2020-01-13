@@ -1,3 +1,6 @@
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
 ## Options section
 setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
@@ -133,9 +136,9 @@ export LESS=-r
 
 ## Plugins section: Enable fish style features
 # Use syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zplug "zsh-users/zsh-syntax-highlighting"
 # Use history substring search
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+zplug "zsh-users/zsh-history-substring-search"
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -163,14 +166,14 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
 #		#BASE16_SHELL="/usr/share/zsh/scripts/base16-shell/base16-$theme.$shade.sh"
 #		#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 #		# Use autosuggestion
-#		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#		zplug "zsh-users/zsh-autosuggestions"
 #		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 #  		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 #     ;;
   *)
         RPROMPT='$(git_prompt_string)'
 		# Use autosuggestion
-		source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+		zplug "zsh-users/zsh-autosuggestions"
 		ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
   		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
     ;;

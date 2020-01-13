@@ -40,3 +40,4 @@ This is the software needed to make the config usable.
 - [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) - [package](https://www.archlinux.org/packages/community/x86_64/the_silver_searcher/)
 - [Patched Input Font](http://input.fontbureau.com/) - [package](https://aur.archlinux.org/packages/ttf-nerd-fonts-input/)
 - [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) - [package](https://www.archlinux.org/packages/community/x86_64/rxvt-unicode/)
+- [zplug](https://github.com/zplug/zplug)
