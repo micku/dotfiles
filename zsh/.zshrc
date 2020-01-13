@@ -195,3 +195,14 @@ eval "$(pyenv virtualenv-init -)"
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
