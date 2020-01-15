@@ -206,3 +206,7 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
+
+if [ `uname` = "Darwin" ] && [ -x "$(command -v docker-machine)" ]; then
+    eval $(docker-machine env default)
+fi
