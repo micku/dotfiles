@@ -32,12 +32,15 @@ Here are some articles I will use as a reference and tools I want to try:
 
 This is the software needed to make the config usable.
 
+### OS agnostic
+
+- [GNU Stow](https://www.gnu.org/software/stow/) - [Manjaro package](https://www.archlinux.org/packages/community/any/stow/)
+- [fzf](https://github.com/junegunn/fzf) - [Manjaro package](https://www.archlinux.org/packages/community/x86_64/fzf/)
+- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) - [Manjaro package](https://www.archlinux.org/packages/community/x86_64/the_silver_searcher/)
+- [zplug](https://github.com/zplug/zplug)
+- [Patched Input Font](http://input.fontbureau.com/) - [Manjaro package](https://aur.archlinux.org/packages/ttf-nerd-fonts-input/)
+
 ### Manjaro
 
-- [GNU Stow](https://www.gnu.org/software/stow/) - [package](https://www.archlinux.org/packages/community/any/stow/)
-- [playerctl](https://github.com/acrisci/playerctl) - [package](https://www.archlinux.org/packages/community/x86_64/playerctl/)
-- [fzf](https://github.com/junegunn/fzf) - [package](https://www.archlinux.org/packages/community/x86_64/fzf/)
-- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher) - [package](https://www.archlinux.org/packages/community/x86_64/the_silver_searcher/)
-- [Patched Input Font](http://input.fontbureau.com/) - [package](https://aur.archlinux.org/packages/ttf-nerd-fonts-input/)
-- [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) - [package](https://www.archlinux.org/packages/community/x86_64/rxvt-unicode/)
-- [zplug](https://github.com/zplug/zplug)
+- [playerctl](https://github.com/acrisci/playerctl) - [Manjaro package](https://www.archlinux.org/packages/community/x86_64/playerctl/)
+- [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) - [Manjaro package](https://www.archlinux.org/packages/community/x86_64/rxvt-unicode/)
