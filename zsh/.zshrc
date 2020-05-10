@@ -133,12 +133,11 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-r
 
-
-## Plugins section: Enable fish style features
-# Use syntax highlighting
-zplug "zsh-users/zsh-syntax-highlighting"
-# Use history substring search
-zplug "zsh-users/zsh-history-substring-search"
+## Plugins section
+zplug "zpm-zsh/colors"                          # Enhanced colors
+zplug "zpm-zsh/autoenv"                         # automatically sources  .in and .out files.
+zplug "zsh-users/zsh-syntax-highlighting"       # Use syntax highlighting
+zplug "zsh-users/zsh-history-substring-search"  # Use history substring search
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
