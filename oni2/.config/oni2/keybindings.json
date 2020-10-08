@@ -1,0 +1,19 @@
+[
+  // See the onivim documentation for details on the format:
+  // https://onivim.github.io/docs/configuration/key-bindings
+  // Add key bindings here, for example:
+  // { "key": "<TAB>", "command": "workbench.action.quickOpen", when: "editorTextFocus" },
+  // { "key": "jk", "command": "vim.esc", when: "insertMode" },
+  { "key": "-", "command": "workbench.view.explorer", "when": "normalMode"},
+  { "key": "<C-t><C-l>", "command": "view.splitVertical", "when": "normalMode || insertMode"},
+  { "key": "<C-t><C-j>", "command": "view.splitHorizontal", "when": "normalMode || insertMode"},
+  { "key": "<C-h>", "command": "window.moveLeft", "when": "normalMode || insertMode"},
+  { "key": "<C-j>", "command": "window.moveDown", "when": "normalMode || insertMode"},
+  { "key": "<C-k>", "command": "window.moveUp", "when": "normalMode || insertMode"},
+  { "key": "<C-l>", "command": "window.moveRight", "when": "normalMode || insertMode"},
+  { "key": "<C-S-h>", "command": "vim.decreaseHorizontalWindowSize", "when": "normalMode || insertMode"},
+  { "key": "<C-S-k>", "command": "vim.increaseVerticalWindowSize", "when": "normalMode || insertMode"},
+  { "key": "<C-S-j>", "command": "vim.decreaseVerticalWindowSize", "when": "normalMode || insertMode"},
+  { "key": "<C-S-l>", "command": "vim.increaseHorizontalWindowSize", "when": "normalMode || insertMode"},
+  { "key": "<C-t><C-t>", "command": ":terminal ++curwin", "when": "normalMode || insertMode"},
+]
