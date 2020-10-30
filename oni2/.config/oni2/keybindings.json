@@ -4,7 +4,8 @@
   // Add key bindings here, for example:
   // { "key": "<TAB>", "command": "workbench.action.quickOpen", when: "editorTextFocus" },
   // { "key": "jk", "command": "vim.esc", when: "insertMode" },
-  { "key": "-", "command": "workbench.view.explorer", "when": "normalMode"},
+
+  // Navigation
   { "key": "<C-t><C-l>", "command": "view.splitVertical", "when": "normalMode || insertMode"},
   { "key": "<C-t><C-j>", "command": "view.splitHorizontal", "when": "normalMode || insertMode"},
   { "key": "<C-h>", "command": "window.moveLeft", "when": "normalMode || insertMode"},
@@ -16,4 +17,23 @@
   { "key": "<C-S-j>", "command": "vim.decreaseVerticalWindowSize", "when": "normalMode || insertMode"},
   { "key": "<C-S-l>", "command": "vim.increaseHorizontalWindowSize", "when": "normalMode || insertMode"},
   { "key": "<C-t><C-t>", "command": ":terminal ++curwin", "when": "normalMode || insertMode"},
+
+  // Explorer
+  { "key": "-", "command": "workbench.view.explorer", "when": "normalMode"},
+  { "key": "h", "command": "vim.list.enter", "when": "!textInputFocus && vimListNavigation" },
+  { "key": "l", "command": "vim.list.enter", "when": "!textInputFocus && vimListNavigation" },
+  { "key": ",,", "command": "workbench.action.findInFiles", "when": "normalMode" },
+  { "key": "<C-l>", "command": "workbench.action.toggleSidebarVisibility", "when": "sideBarFocus" },
+  { "key": "<Escape>", "command": "workbench.action.toggleSidebarVisibility", "when": "sideBarFocus" },
+
+  // Search
+  { "key": ",<Space>", "command": ":noh", "when": "normalMode" },
+  
+  { "key": ",p", "command": "workbench.actions.view.problems", "when": "normalMode"},
+  { "key": "<C-k>", "command": "workbench.actions.view.problems", "when": "vimWindowNavigation"},
+
+  // Autocompletion
+  { "key":"<S-Tab>", "command":"selectPrevSuggestion", "when":"editorTextFocus && suggestWidgetVisible" },
+  { "key":"<Tab>", "command":"selectNextSuggestion", "when":"editorTextFocus && suggestWidgetVisible" },
+  { "key":"<CR>", "command":"acceptSelectedSuggestion", "when":"suggestWidgetVisible && editorTextFocus" },
 ]

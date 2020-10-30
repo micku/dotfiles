@@ -1,4 +1,9 @@
 {
+  "python.formatting.provider": "yapf",
+  "python.linting.enabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": false,
+  "window.title": "${rootName}${separator}${dirty}${activeEditorMedium}",
   "workbench.colorTheme": "Dracula",
   "editor.detectIndentation": true,
   "editor.fontFamily": "Fira Code",
@@ -29,5 +34,10 @@
   "workbench.tree.indent": 2,
   "vim.useSystemClipboard": true,
   "oni.layout.singleTabMode": true,
-  "oni.inactiveWindowOpacity": 0.65
+  "oni.inactiveWindowOpacity": 0.65,
+  "experimental.viml": [
+    "set wrap", "set linebreak", "set nolist", "set textwidth=0",
+    "set wrapmargin=0", "set ignorecase", "set smartcase",
+    "autocmd CursorHold,CursorHoldI * checktime"
+  ]
 }
