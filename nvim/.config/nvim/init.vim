@@ -12,24 +12,30 @@ call plug#begin('~/.vim/plugged')
 "  Editing
 Plug 'tpope/vim-surround'                                       " Work with surrounding chars
 Plug 'tpope/vim-vinegar'                                        " Netrw improved
-Plug 'davidhalter/jedi-vim'                                     " Static analysis
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }   " Autocomplete
 Plug 'terryma/vim-expand-region'                                " Incremental selection
 "  Navigation
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'             " Fuzzy search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy search
+Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'                           " Tmux + Vim splits
 "  Generic dev
 Plug 'editorconfig/editorconfig-vim'                            " .editorconfig support
 Plug 'neomake/neomake'                                          " Async make and linting
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }                                                         " Language Server support
 Plug 'tpope/vim-fugitive'                                       " Git inside Vim
+Plug 'tommcdo/vim-fubitive'                                     " Bitbucket plugin for vim-fugitive
 Plug 'tpope/vim-rhubarb'                                        " GitHub plugin for vim-fugitive
+Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin for vim-fugitive
+Plug 'ludovicchabant/vim-gutentags'                             " Automatically manage ctags
+Plug 'sheerun/vim-polyglot'                                     " Syntax highlighting language packs
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "  Python
 Plug 'SkyLeach/pudb.vim'                                        " Python debugger
 Plug 'psf/black'                                                " Python formatter TBD
+"  UI
+Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
+Plug 'itchyny/lightline.vim'                                    " Better statusline
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }       " File browser
+Plug 'ryanoasis/vim-devicons'                                   " DevIcons
+Plug 'kristijanhusak/defx-icons'                                " DevIcons for Defx
 
 call plug#end()
 "End vim-plug Scripts-------------------------
@@ -55,6 +61,8 @@ highlight Statement cterm=bold ctermfg=15
 " Show line numbers relative to cursor
 set number
 set relativenumber
+" Hide '-- INSERT --' since it is already shown in lightline
+set noshowmode
 
 " Use UTF-8 for files
 set encoding=utf-8
@@ -106,9 +114,12 @@ set wildignore+=*.pyc
 " Windows splitting
 set splitbelow
 set splitright
-"
-" vim-expand-region custom config
-vmap v <Plug>(expand_region_expand)
+
+" Enable folding
+set foldmethod=syntax   
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 
 " ---------------------- FILE TYPES ----------------------
@@ -125,66 +136,32 @@ autocmd BufNewFile,BufRead *.jade setlocal ft=jade
 "   .go files are golang files
 autocmd BufNewFile,BufRead *.go setlocal ft=go
 
-
-" ---------------------- BINDINGS ----------------------
-
-" use <leader-space> to remove search higlight
-nnoremap <leader><space> :noh<cr>
-
-" Splits management
-"More inspiration here: https://thoughtbot.com/blog/vim-splits-move-faster-and-more-naturally
-nnoremap <C-t><C-j> <C-w>s
-nnoremap <C-t><C-k> <C-w>s
-nnoremap <C-t><C-l> <C-w>v
-nnoremap <C-t><C-h> <C-w>v
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <silent> <Leader>s :resize -5<CR>
-nnoremap <silent> <Leader>w :resize +5<CR>
-nnoremap <silent> <Leader>d :vertical resize -5<CR>
-nnoremap <silent> <Leader>a :vertical resize +5<CR>
-
 " Enable mouse scroll in terminal
 if has('mouse')
     set mouse=a
 endif
 
-" Move by displayed lines, not by fisical lines
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-noremap  <buffer> <silent> 0 g0
-noremap  <buffer> <silent> $ g$
-
-" fzf
-let g:fzf_command_prefix = 'Fzf'
-nnoremap <leader>- :FzfFiles!<cr>
-nnoremap <leader>, :FzfAg!<cr>
-nnoremap <leader>c :FzfCommits!<cr>
-
-" Black
-nnoremap <leader>f :Black<cr>
-
-" ---------------------- PLUGINS ----------------------
-
-source ~/.config/nvim/jedi.vim
-source ~/.config/nvim/pudb.vim
-source ~/.config/nvim/neomake.vim
-
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['~/.pyenv/versions/neovim3/bin/pyls'],
-    \ }
-" Disable linting since it is done by Neomake + Mypy
-let g:LanguageClient_diagnosticsEnable = 0
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" ---------------------- BINDINGS ----------------------
 
-let g:deoplete#enable_at_startup = 1
+source ~/.config/nvim/bindings.vim
+
+
+" ---------------------- PLUGINS ----------------------
+
+source ~/.config/nvim/plugins/fzf.vim
+source ~/.config/nvim/plugins/pudb.vim
+source ~/.config/nvim/plugins/neomake.vim
+source ~/.config/nvim/plugins/lightline.vim
+source ~/.config/nvim/plugins/defx.vim
+source ~/.config/nvim/plugins/coc.vim
+
+let g:gutentags_enabled = 1
+let g:gutentags_define_advanced_commands = 1
+let g:gutentags_cache_dir = '~/.vim/tags/'
+
+" vim-expand-region custom config
+vmap v <Plug>(expand_region_expand)
