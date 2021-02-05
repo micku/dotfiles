@@ -1,4 +1,4 @@
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME=~/.zplug
 source $ZPLUG_HOME/init.zsh
 
 ## Options section
@@ -182,9 +182,6 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# Node Version Manager
-[[ -f "/usr/share/nvm/init-nvm.sh" ]] && source /usr/share/nvm/init-nvm.sh
-
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
@@ -206,8 +203,39 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
+# Node Version Manager
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+#[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
+
+export ANDROID_HOME=~/Android/Sdk
+export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+eval "$(direnv hook zsh)"
