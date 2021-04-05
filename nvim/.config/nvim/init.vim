@@ -27,9 +27,6 @@ Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin f
 Plug 'ludovicchabant/vim-gutentags'                             " Automatically manage ctags
 Plug 'sheerun/vim-polyglot'                                     " Syntax highlighting language packs
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"  Python
-Plug 'SkyLeach/pudb.vim'                                        " Python debugger
-Plug 'psf/black'                                                " Python formatter TBD
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline
@@ -153,7 +150,6 @@ source ~/.config/nvim/bindings.vim
 " ---------------------- PLUGINS ----------------------
 
 source ~/.config/nvim/plugins/fzf.vim
-source ~/.config/nvim/plugins/pudb.vim
 source ~/.config/nvim/plugins/neomake.vim
 source ~/.config/nvim/plugins/lightline.vim
 source ~/.config/nvim/plugins/defx.vim

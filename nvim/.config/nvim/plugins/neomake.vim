@@ -4,7 +4,7 @@ call neomake#configure#automake({
   \ 'BufWritePost': {},
   \ 'BufWinEnter': {},
   \ }, 0)
-let g:neomake_python_enabled_makers = ['mypy']
+let g:neomake_python_enabled_makers = []
 let g:neomake_python_mypy_maker = {
   \ 'exe': 'mypy',
   \ 'args': [
