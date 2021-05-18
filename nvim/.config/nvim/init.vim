@@ -8,6 +8,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" TODO: Remove the package manager (https://neovim.io/doc/user/usr_05.html#05.6)
+" and use the native one + git submodules (https://shapeshed.com/vim-packages/)
+
 " List of plugins
 "  Editing
 Plug 'tpope/vim-surround'                                       " Work with surrounding chars
@@ -19,14 +22,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'                           " Tmux + Vim splits
 "  Generic dev
 Plug 'editorconfig/editorconfig-vim'                            " .editorconfig support
-Plug 'neomake/neomake'                                          " Async make and linting
+Plug 'neovim/nvim-lspconfig'                                    " Common config for LSP
 Plug 'tpope/vim-fugitive'                                       " Git inside Vim
 Plug 'tommcdo/vim-fubitive'                                     " Bitbucket plugin for vim-fugitive
 Plug 'tpope/vim-rhubarb'                                        " GitHub plugin for vim-fugitive
 Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin for vim-fugitive
-Plug 'ludovicchabant/vim-gutentags'                             " Automatically manage ctags
-Plug 'sheerun/vim-polyglot'                                     " Syntax highlighting language packs
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " Better syntax highlighting
+Plug 'hrsh7th/nvim-compe'                                       " Autocompletion
+Plug 'onsails/lspkind-nvim'                                     " LSP pictograms
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline
@@ -46,6 +49,10 @@ let g:python3_host_prog=expand('~/.pyenv/versions/neovim3/bin/python')
 "  Basic and pretty much needed settings to provide a solid base for
 "  source code editting
 
+" Play nice with colors and themes
+set termguicolors
+colorscheme dracula
+
 " Turn on syntax highlighting
 syntax on
 " Set some colors
@@ -55,54 +62,17 @@ highlight CursorLineNr ctermfg=5
 highlight Comment cterm=italic ctermfg=8
 highlight Todo ctermbg=8 ctermfg=6
 highlight Statement cterm=bold ctermfg=15
-" Show line numbers relative to cursor
-set number
-set relativenumber
-" Hide '-- INSERT --' since it is already shown in lightline
-set noshowmode
 
-" Use UTF-8 for files
-set encoding=utf-8
-set fileencoding=utf-8
+:lua require('options')
 
 " Enable matchit plugin which ships with vim and greatly enhances '%'
 runtime macros/matchit.vim
-
-" Set unix line endings
-set fileformat=unix
-
-" When reading files try unix line endings then dos, also use unix for new
-" buffers
-set fileformats=unix,dos
-
-" Save up to 100 marks, enable capital marks
-set viminfo='100,f1
-
-" Screen will not be redrawn while running macros, registers or other
-" non-typed comments
-set lazyredraw
 
 " Set , as mapleader
 let mapleader = ","
 
 " Yank to and paste from system clipboard
 set clipboard+=unnamedplus
-
-" Keep the cursor visible within 3 lines when scrolling
-set scrolloff=3
-
-" Indentation
-set expandtab       " use spaces instead of tabs
-set smartindent     " smarter indent for C-like languages
-set shiftwidth=4    " when reading, tabs are 4 spaces
-set softtabstop=4   " in insert mode, tabs are 4 spaces
-
-" Search settings
-set ignorecase       " Do case insensitive matching
-set smartcase        " With ignorecase, if all lowercase, case insensitive
-
-" Make undo persistant
-set undofile
 
 " Netrw configuration
 let g:netrw_liststyle = 3
@@ -142,22 +112,24 @@ endif
 set hidden
 
 
-" ---------------------- BINDINGS ----------------------
-
-source ~/.config/nvim/bindings.vim
-
-
-" ---------------------- PLUGINS ----------------------
-
+" " ---------------------- PLUGINS ----------------------
+" 
 source ~/.config/nvim/plugins/fzf.vim
-source ~/.config/nvim/plugins/neomake.vim
 source ~/.config/nvim/plugins/lightline.vim
 source ~/.config/nvim/plugins/defx.vim
-source ~/.config/nvim/plugins/coc.vim
 
-let g:gutentags_enabled = 1
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_cache_dir = '~/.vim/tags/'
+" vim-fugitive config
+let g:fugitive_stash_domains = ['stash.int.klarna.net']
 
 " vim-expand-region custom config
 vmap v <Plug>(expand_region_expand)
+
+
+:lua require('treesitter')
+:lua require('lsp')
+:lua require('autocompletion')
+
+
+" ---------------------- BINDINGS ----------------------
+
+source ~/.config/nvim/bindings.vim
