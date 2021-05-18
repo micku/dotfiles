@@ -215,3 +215,5 @@ bindkey '^[[B' history-substring-search-down
 # Use autosuggestion
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
+export TERM=xterm-256color-italic
