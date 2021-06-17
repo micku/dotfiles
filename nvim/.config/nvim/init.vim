@@ -30,6 +30,7 @@ Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin f
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " Better syntax highlighting
 Plug 'hrsh7th/nvim-compe'                                       " Autocompletion
 Plug 'onsails/lspkind-nvim'                                     " LSP pictograms
+Plug 'mhartington/formatter.nvim'                               " Code formatter
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline
@@ -126,6 +127,7 @@ vmap v <Plug>(expand_region_expand)
 
 
 :lua require('treesitter')
+:lua require('codeFormat')
 :lua require('lsp')
 :lua require('autocompletion')
 
