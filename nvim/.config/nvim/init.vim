@@ -134,5 +134,4 @@ vmap v <Plug>(expand_region_expand)
 
 
 " ---------------------- BINDINGS ----------------------
-
-source ~/.config/nvim/bindings.vim
+:lua require('bindings')
