@@ -31,6 +31,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " Better syntax 
 Plug 'hrsh7th/nvim-compe'                                       " Autocompletion
 Plug 'onsails/lspkind-nvim'                                     " LSP pictograms
 Plug 'mhartington/formatter.nvim'                               " Code formatter
+Plug 'michaelb/sniprun', {'do': 'bash install.sh'}              " Execute snippets of code
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline

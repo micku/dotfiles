@@ -24,3 +24,10 @@ noremap  <buffer> <silent> $ g$
 
 " Format code (doesn't work...)
 nnoremap <silent> <leader>f :Format<CR>
+
+lua << EOF
+-- Execute snippets of code
+vim.api.nvim_set_keymap('v', 'e', '<Plug>SnipRun', {silent = true})
+vim.api.nvim_set_keymap('n', '<leader>e', '<Plug>SnipRunOperator', {silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ee', '<Plug>SnipRun', {silent = true})
+EOF
