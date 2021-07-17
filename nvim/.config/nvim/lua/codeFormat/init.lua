@@ -11,6 +11,16 @@ require('formatter').setup({
           }
         end
     },
+    typescript = {
+        -- prettier
+       function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
+            stdin = true
+          }
+        end
+    },
     rust = {
       -- Rustfmt
       function()
@@ -20,17 +30,7 @@ require('formatter').setup({
           stdin = true
         }
       end
-    },
-    lua = {
-        -- luafmt
-        function()
-          return {
-            exe = "luafmt",
-            args = {"--indent-count", 2, "--stdin"},
-            stdin = true
-          }
-        end
-      }
+    }
   }
 })
 
@@ -38,6 +38,6 @@ require('formatter').setup({
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.js,*.rs,*.lua FormatWrite
+  autocmd BufWritePost *.ts,*.js,*.rs FormatWrite
 augroup END
 ]], true)

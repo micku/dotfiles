@@ -22,10 +22,9 @@ vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '0', 'g0', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '$', 'g$', {noremap = true, silent = true})
 
--- Format code (doesn't work...)
+-- Format code
 vim.api.nvim_set_keymap('n', '<leader>f', ':Format<CR>', {noremap = true, silent = true})
 
 -- Execute snippets of code
-vim.api.nvim_set_keymap('v', 'e', '<Plug>SnipRun', {silent = true})
 vim.api.nvim_set_keymap('n', '<leader>e', '<Plug>SnipRunOperator', {silent = true})
 vim.api.nvim_set_keymap('n', '<leader>ee', '<Plug>SnipRun', {silent = true})
