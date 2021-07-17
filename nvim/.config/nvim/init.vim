@@ -38,6 +38,7 @@ Plug 'itchyny/lightline.vim'                                    " Better statusl
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }       " File browser
 Plug 'ryanoasis/vim-devicons'                                   " DevIcons
 Plug 'kristijanhusak/defx-icons'                                " DevIcons for Defx
+Plug 'glepnir/lspsaga.nvim'                                     " LSP UI
 
 call plug#end()
 "End vim-plug Scripts-------------------------
