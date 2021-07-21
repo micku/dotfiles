@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugged')
 " List of plugins
 "  Editing
 Plug 'tpope/vim-surround'                                       " Work with surrounding chars
-Plug 'tpope/vim-vinegar'                                        " Netrw improved
 Plug 'terryma/vim-expand-region'                                " Incremental selection
 "  Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy search
@@ -35,104 +34,95 @@ Plug 'michaelb/sniprun', {'do': 'bash install.sh'}              " Execute snippe
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }       " File browser
 Plug 'ryanoasis/vim-devicons'                                   " DevIcons
-Plug 'kristijanhusak/defx-icons'                                " DevIcons for Defx
 Plug 'glepnir/lspsaga.nvim'                                     " LSP UI
+Plug 'folke/zen-mode.nvim'                                      " Zen mode
+"  File explorer
+Plug 'lambdalisue/fern.vim'                                     " File explorer
+Plug 'lambdalisue/nerdfont.vim'                                 " Nerdfont for Fern
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'                   " Add Nerdfont support to Fern
+Plug 'lambdalisue/fern-hijack.vim'                              " Replace Netrw with Fern
 
 call plug#end()
 "End vim-plug Scripts-------------------------
 
-" -------------------- NEOVIM PYTHON CONFIGURATION --------------------
+lua << EOF
+local cmd = vim.cmd
+local api = vim.api
+local opt = vim.opt
+local g = vim.g
 
-let g:python_host_prog=expand('~/.pyenv/versions/neovim2/bin/python')
-let g:python3_host_prog=expand('~/.pyenv/versions/neovim3/bin/python')
+-------------------- NEOVIM PYTHON CONFIGURATION --------------------
 
-" ---------------------- USABILITY CONFIGURATION ----------------------
-"  Basic and pretty much needed settings to provide a solid base for
-"  source code editting
-
-" Play nice with colors and themes
-set termguicolors
-colorscheme dracula
-
-" Turn on syntax highlighting
-syntax on
-" Set some colors
-highlight Search ctermbg=4
-highlight LineNr ctermfg=8
-highlight CursorLineNr ctermfg=5
-highlight Comment cterm=italic ctermfg=8
-highlight Todo ctermbg=8 ctermfg=6
-highlight Statement cterm=bold ctermfg=15
-
-:lua require('options')
-
-" Enable matchit plugin which ships with vim and greatly enhances '%'
-runtime macros/matchit.vim
-
-" Set , as mapleader
-let mapleader = ","
-
-" Yank to and paste from system clipboard
-set clipboard+=unnamedplus
-
-" Netrw configuration
-let g:netrw_liststyle = 3
-set wildignore+=*.pyc
-
-" Windows splitting
-set splitbelow
-set splitright
-
-" Enable folding
-set foldmethod=syntax   
-set foldnestmax=10
-set nofoldenable
-set foldlevel=2
+g.python_host_prog = '~/.pyenv/versions/neovim2/bin/python'
+g.python3_host_prog = '~/.pyenv/versions/neovim3/bin/python'
 
 
-" ---------------------- FILE TYPES ----------------------
+---------------------- USABILITY CONFIGURATION ----------------------
+-- Basic and pretty much needed settings to provide a solid base for
+-- source code editting
 
-" on file types...
-"   .md files are markdown files
-autocmd BufNewFile,BufRead *.md setlocal ft=markdown
-"   .twig files use html syntax
-autocmd BufNewFile,BufRead *.twig setlocal ft=html
-"   .less files use less syntax
-autocmd BufNewFile,BufRead *.less setlocal ft=less
-"   .jade files use jade syntax
-autocmd BufNewFile,BufRead *.jade setlocal ft=jade
-"   .go files are golang files
-autocmd BufNewFile,BufRead *.go setlocal ft=go
+-- Play nice with colors and themes
+opt.termguicolors = true
+cmd 'colorscheme dracula'
 
-" Enable mouse scroll in terminal
-if has('mouse')
-    set mouse=a
-endif
+-- Turn on syntax highlighting
+--syntax on
+-- Set some colors
+cmd 'highlight Search ctermbg=4'
+cmd 'highlight LineNr ctermfg=8'
+cmd 'highlight CursorLineNr ctermfg=5'
+cmd 'highlight Comment cterm=italic ctermfg=8'
+cmd 'highlight Todo ctermbg=8 ctermfg=6'
+cmd 'highlight Statement cterm=bold ctermfg=15'
 
-" Required for operations modifying multiple buffers like rename.
-set hidden
+require('options')
+
+-- Enable matchit plugin which ships with vim and greatly enhances '%'
+cmd 'runtime macros/matchit.vim'
+
+-- Set , as mapleader
+g.mapleader = ','
+
+-- Yank to and paste from system clipboard
+opt.clipboard = opt.clipboard + 'unnamedplus'
+
+-- Windows splitting
+opt.splitbelow = true
+opt.splitright = true
+
+-- Enable folding
+opt.foldmethod = 'syntax'
+opt.foldnestmax = 10
+opt.foldlevel =2
+
+-- Enable mouse scroll in terminal
+opt.mouse = 'a'
+
+-- Required for operations modifying multiple buffers like rename.
+opt.hidden = true
+
+
+---------------------- FILE TYPES ----------------------
+
+cmd([[
+  autocmd BufNewFile,BufRead *.md setlocal ft=markdown " .md files are markdown files
+  autocmd BufNewFile,BufRead *.go setlocal ft=go " .go files are golang files
+]])
+
+---------------------- PLUGINS ----------------------
+
+require('fuzzysearch')
+require('git')
+require('treesitter')
+require('codeFormat')
+require('lsp')
+require('autocompletion')
+require('fileExplorer')
+require('bindings')
+EOF
 
 
 " " ---------------------- PLUGINS ----------------------
 " 
-source ~/.config/nvim/plugins/fzf.vim
 source ~/.config/nvim/plugins/lightline.vim
-source ~/.config/nvim/plugins/defx.vim
-
-" vim-fugitive config
-let g:fugitive_stash_domains = ['stash.int.klarna.net']
-
-" vim-expand-region custom config
-vmap v <Plug>(expand_region_expand)
-
-
-:lua require('treesitter')
-:lua require('codeFormat')
-:lua require('lsp')
-:lua require('autocompletion')
-
-
-" ---------------------- BINDINGS ----------------------
-:lua require('bindings')

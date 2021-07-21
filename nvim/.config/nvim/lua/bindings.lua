@@ -1,30 +1,50 @@
+local function map(mode, lhs, rhs, opts)
+  local options = {noremap = true}
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
 -- use <leader-space> to remove search higlight
-vim.api.nvim_set_keymap('n', '<leader><space>', ':noh<cr>', {noremap = true})
+map('n', '<leader><space>', ':noh<cr>')
 
 -- Splits management
 -- More inspiration here: https://thoughtbot.com/blog/vim-splits-move-faster-and-more-naturally
-vim.api.nvim_set_keymap('n', '<C-t><C-j>', '<C-w>s', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-k>', '<C-w>s', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-l>', '<C-w>v', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-h>', '<C-w>v', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-J>', '<C-W><C-J>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-K>', '<C-W><C-K>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-L>', '<C-W><C-L>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-H>', '<C-W><C-H>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>s', ':resize -5<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>w', ':resize +5<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>d', ':vertical resize -5<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>a', ':vertical resize +5<CR>', {noremap = true, silent = true})
+map('n', '<C-t><C-j>', '<C-w>s')
+map('n', '<C-t><C-k>', '<C-w>s')
+map('n', '<C-t><C-l>', '<C-w>v')
+map('n', '<C-t><C-h>', '<C-w>v')
+map('n', '<C-J>', '<C-W><C-J>', {silent = true})
+map('n', '<C-K>', '<C-W><C-K>', {silent = true})
+map('n', '<C-L>', '<C-W><C-L>', {silent = true})
+map('n', '<C-H>', '<C-W><C-H>', {silent = true})
+map('n', '<Leader>s', ':resize -5<CR>', {silent = true})
+map('n', '<Leader>w', ':resize +5<CR>', {silent = true})
+map('n', '<Leader>d', ':vertical resize -5<CR>', {silent = true})
+map('n', '<Leader>a', ':vertical resize +5<CR>', {silent = true})
 
 -- Move by displayed lines, not by fisical lines
-vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '0', 'g0', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '$', 'g$', {noremap = true, silent = true})
+map('n', 'k', 'gk', {silent = true})
+map('n', 'j', 'gj', {silent = true})
+map('n', '0', 'g0', {silent = true})
+map('n', '$', 'g$', {silent = true})
 
 -- Format code
-vim.api.nvim_set_keymap('n', '<leader>f', ':Format<CR>', {noremap = true, silent = true})
+map('n', '<leader>f', ':Format<CR>', {silent = true})
 
 -- Execute snippets of code
-vim.api.nvim_set_keymap('n', '<leader>e', '<Plug>SnipRunOperator', {silent = true})
-vim.api.nvim_set_keymap('n', '<leader>ee', '<Plug>SnipRun', {silent = true})
+map('n', '<leader>e', '<Plug>SnipRunOperator', {silent = true})
+map('n', '<leader>ee', '<Plug>SnipRun', {silent = true})
+
+-- Zen mode
+map('n', '<leader>z', ':ZenMode<CR>', {silent = true})
+
+-- File explorer
+map('n', '-', ':Fern . -reveal=%<CR>', {silent = true})
+
+-- Fuzzy search
+map('n', '<leader>-', ':FzfFiles!<cr>')
+map('n', '<leader>,', ':FzfAg!<cr>')
+map('n', '<leader>c', ':FzfCommits!<cr>')
+
+-- vim-expand-region custom config
+map('v', 'v', '<Plug>(expand_region_expand)', {noremap = false})

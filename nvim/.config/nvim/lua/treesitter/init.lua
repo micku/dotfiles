@@ -11,7 +11,8 @@ ts_config.setup {
         "cpp",
         "rust",
         "lua",
-        "python"
+        "python",
+        "c_sharp"
     },
     highlight = {
         enable = true,

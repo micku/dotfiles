@@ -1,3 +1,5 @@
+local g = vim.g
+
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -52,7 +54,6 @@ local servers = { "tsserver", "graphql" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
-
 
 require('lspkind').init({
     -- with_text = true,
