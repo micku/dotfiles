@@ -14,7 +14,7 @@ call plug#begin('~/.vim/plugged')
 " List of plugins
 "  Editing
 Plug 'tpope/vim-surround'                                       " Work with surrounding chars
-Plug 'terryma/vim-expand-region'                                " Incremental selection
+Plug 'RRethy/nvim-treesitter-textsubjects'                      " Incremental selection
 "  Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy search
 Plug 'junegunn/fzf.vim'
@@ -22,15 +22,16 @@ Plug 'christoomey/vim-tmux-navigator'                           " Tmux + Vim spl
 "  Generic dev
 Plug 'editorconfig/editorconfig-vim'                            " .editorconfig support
 Plug 'neovim/nvim-lspconfig'                                    " Common config for LSP
-Plug 'tpope/vim-fugitive'                                       " Git inside Vim
-Plug 'tommcdo/vim-fubitive'                                     " Bitbucket plugin for vim-fugitive
-Plug 'tpope/vim-rhubarb'                                        " GitHub plugin for vim-fugitive
-Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin for vim-fugitive
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " Better syntax highlighting
 Plug 'hrsh7th/nvim-compe'                                       " Autocompletion
 Plug 'onsails/lspkind-nvim'                                     " LSP pictograms
 Plug 'mhartington/formatter.nvim'                               " Code formatter
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}              " Execute snippets of code
+"  Git
+Plug 'tpope/vim-fugitive'                                       " Git inside Vim
+Plug 'tommcdo/vim-fubitive'                                     " Bitbucket plugin for vim-fugitive
+Plug 'tpope/vim-rhubarb'                                        " GitHub plugin for vim-fugitive
+Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin for vim-fugitive
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline

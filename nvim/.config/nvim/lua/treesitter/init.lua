@@ -17,5 +17,12 @@ ts_config.setup {
     highlight = {
         enable = true,
         use_languagetree = true
-    }
+    },
+    textsubjects = {
+        enable = true,
+        keymaps = {
+            ['v'] = 'textsubjects-smart',
+            ['V'] = 'textsubjects-container-outer',
+        }
+    },
 }
