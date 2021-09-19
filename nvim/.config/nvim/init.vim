@@ -12,12 +12,14 @@ call plug#begin('~/.vim/plugged')
 " and use the native one + git submodules (https://shapeshed.com/vim-packages/)
 
 " List of plugins
+"  Lua
+Plug 'nvim-lua/plenary.nvim'                                    " Lua utils
 "  Editing
 Plug 'tpope/vim-surround'                                       " Work with surrounding chars
 Plug 'RRethy/nvim-treesitter-textsubjects'                      " Incremental selection
 "  Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy search
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'                                         " ^^^^^ ^^^^^^
 Plug 'christoomey/vim-tmux-navigator'                           " Tmux + Vim splits
 "  Generic dev
 Plug 'editorconfig/editorconfig-vim'                            " .editorconfig support
@@ -36,13 +38,11 @@ Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin f
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
 Plug 'itchyny/lightline.vim'                                    " Better statusline
 Plug 'ryanoasis/vim-devicons'                                   " DevIcons
+Plug 'kyazdani42/nvim-web-devicons'                             " DevIcons :|
 Plug 'glepnir/lspsaga.nvim'                                     " LSP UI
 Plug 'folke/zen-mode.nvim'                                      " Zen mode
 "  File explorer
-Plug 'lambdalisue/fern.vim'                                     " File explorer
-Plug 'lambdalisue/nerdfont.vim'                                 " Nerdfont for Fern
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'                   " Add Nerdfont support to Fern
-Plug 'lambdalisue/fern-hijack.vim'                              " Replace Netrw with Fern
+Plug 'tamago324/lir.nvim'                                       " File explorer
 
 call plug#end()
 "End vim-plug Scripts-------------------------

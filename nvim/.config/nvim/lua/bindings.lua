@@ -39,7 +39,7 @@ map('n', '<leader>ee', '<Plug>SnipRun', {silent = true})
 map('n', '<leader>z', ':ZenMode<CR>', {silent = true})
 
 -- File explorer
-map('n', '-', ':Fern . -reveal=%<CR>', {silent = true})
+map('n', '-', ":lua require'lir.float'.toggle()<CR>", {silent = true})
 
 -- Fuzzy search
 map('n', '<leader>-', ':FzfFiles!<cr>')

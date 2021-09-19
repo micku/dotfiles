@@ -1,38 +1,75 @@
-local cmd = vim.cmd
-local g = vim.g
+local actions = require'lir.actions'
+local mark_actions = require 'lir.mark.actions'
+local clipboard_actions = require'lir.clipboard.actions'
 
-function _G.init_fern()
-  local api = vim.api
+require'lir'.setup {
+  show_hidden_files = false,
+  devicons_enable = true,
+  mappings = {
+    ['l']     = actions.edit,
+    ['<C-s>'] = actions.split,
+    ['<C-v>'] = actions.vsplit,
+    ['<C-t>'] = actions.tabedit,
 
-  -- Unmap maps used for mobility
-  api.nvim_buf_del_keymap(0, '', '<C-h>')
-  api.nvim_buf_del_keymap(0, '', '<C-l>')
-  api.nvim_buf_del_keymap(0, '', '<C-j>')
-  api.nvim_buf_del_keymap(0, '', '<C-k>')
+    ['h']     = actions.up,
+    ['q']     = actions.quit,
 
-  -- Mark files with space
-  api.nvim_buf_set_keymap(0, 'n', ' ', '<Plug>(fern-action-mark)', {})
+    ['K']     = actions.mkdir,
+    ['N']     = actions.newfile,
+    ['R']     = actions.rename,
+    ['@']     = actions.cd,
+    ['Y']     = actions.yank_path,
+    ['.']     = actions.toggle_show_hidden,
+    ['D']     = actions.delete,
 
-  -- l should expand, collapse or open
-  api.nvim_buf_set_keymap(0, 'n', '<Plug>(fern-expand-or-collapse)', 'fern#smart#leaf("<Plug>(fern-action-open)", "<Plug>(fern-action-expand)", "<Plug>(fern-action-collapse)")', {expr = true})
-  --nmap <buffer><nowait> l <Plug>(fern-expand-or-collapse)
-  api.nvim_buf_set_keymap(0, 'n', 'l', '<Plug>(fern-expand-or-collapse)', {})
+    ['J'] = function()
+      mark_actions.toggle_mark()
+      vim.cmd('normal! j')
+    end,
+    ['C'] = clipboard_actions.copy,
+    ['X'] = clipboard_actions.cut,
+    ['P'] = clipboard_actions.paste,
+  },
+  float = {
+    winblend = 0,
 
-  -- When the tree changes, change the tab cd
-  api.nvim_buf_set_keymap(0, 'n', '<Plug>(fern-action-leave-and-tcd)', '<Plug>(fern-action-leave)<Plug>(fern-wait)<Plug>(fern-action-tcd:root)', {})
-  api.nvim_buf_set_keymap(0, 'n', '-', '<Plug>(fern-action-leave-and-tcd)', {})
+    win_opts = function()
+      local width = math.floor(vim.o.columns * 0.8)
+      local height = math.floor(vim.o.lines * 0.8)
+      return {
+        border = "shadow",
+        relative = "editor",
+        row = math.floor((vim.o.lines - (vim.o.lines * 0.5)) / 2) - 1,
+        col = math.floor((vim.o.lines - (vim.o.columns * 0.5)) / 2),
+        width = math.floor(vim.o.columns * 0.5),
+        height = math.floor(vim.o.lines * 0.5),
+        style = "minimal",
+      }
+    end,
+  },
+  hide_cursor = true,
+}
 
-  -- Manually change cd
-  api.nvim_buf_set_keymap(0, 'n', 'cd', '<Plug>(fern-action-tcd:cursor)', {})
+-- custom folder icon
+require'nvim-web-devicons'.setup({
+  override = {
+    lir_folder_icon = {
+      icon = "",
+      color = "#7ebae4",
+      name = "LirFolderNode"
+    },
+  }
+})
 
-  -- Open node with 'o'
-  api.nvim_buf_set_keymap(0, 'n', 'o', '<Plug>(fern-action-open-or-expand)', {})
+-- use visual mode
+function _G.LirSettings()
+  vim.api.nvim_buf_set_keymap(0, 'x', 'J', ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>', {noremap = true, silent = true})
+
+  -- echo cwd
+  vim.api.nvim_echo({{vim.fn.expand('%:p'), 'Normal'}}, false, {})
 end
 
-g['fern#renderer'] = "nerdfont"
-cmd([[
-  augroup fern-custom
-    autocmd! *
-    autocmd FileType fern call v:lua.init_fern()
-  augroup END
-]])
+vim.cmd [[augroup lir-settings]]
+vim.cmd [[  autocmd!]]
+vim.cmd [[  autocmd Filetype lir :lua LirSettings()]]
+vim.cmd [[augroup END]]
