@@ -27,6 +27,7 @@ Plug 'neovim/nvim-lspconfig'                                    " Common config 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " Better syntax highlighting
 Plug 'hrsh7th/nvim-compe'                                       " Autocompletion
 Plug 'onsails/lspkind-nvim'                                     " LSP pictograms
+Plug 'OmniSharp/omnisharp-vim'                                  " C# LSP
 Plug 'mhartington/formatter.nvim'                               " Code formatter
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}              " Execute snippets of code
 "  Git
@@ -43,6 +44,9 @@ Plug 'glepnir/lspsaga.nvim'                                     " LSP UI
 Plug 'folke/zen-mode.nvim'                                      " Zen mode
 "  File explorer
 Plug 'tamago324/lir.nvim'                                       " File explorer
+"  Debugging
+Plug 'mfussenegger/nvim-dap'                                    " Debug Adapter Protocol
+Plug 'rcarriga/nvim-dap-ui'                                     " UI for DAP
 
 call plug#end()
 "End vim-plug Scripts-------------------------
@@ -121,6 +125,7 @@ require('lsp')
 require('autocompletion')
 require('fileExplorer')
 require('bindings')
+require('debugging')
 EOF
 
 

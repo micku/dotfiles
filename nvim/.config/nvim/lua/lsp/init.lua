@@ -55,6 +55,13 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 
+g.OmniSharp_server_use_mono = 1
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/Users/michele.gargiulo/Downloads/omnisharp-osx/run"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+}
+
 require('lspkind').init({
     -- with_text = true,
     -- symbol_map = {

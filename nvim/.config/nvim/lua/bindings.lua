@@ -43,8 +43,21 @@ map('n', '-', ":lua require'lir.float'.toggle()<CR>", {silent = true})
 
 -- Fuzzy search
 map('n', '<leader>-', ':FzfFiles!<cr>')
+local cmd = vim.cmd
+cmd 'command! -bang -nargs=* FzfAg call fzf#vim#ag(<q-args>, {"options": "--delimiter : --nth 4.."}, <bang>0)'
 map('n', '<leader>,', ':FzfAg!<cr>')
 map('n', '<leader>c', ':FzfCommits!<cr>')
 
 -- vim-expand-region custom config
 map('v', 'v', '<Plug>(expand_region_expand)', {noremap = false})
+
+-- debugging
+map('n', '<F5>', ':lua require"dap".continue()<CR>', {silent = true})
+map('n', '<F7>', ':lua require"dap".repl.open()<CR>', {silent = true})
+map('n', '<F8>', ':lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', {silent = true})
+map('n', '<F9>', ':lua require"dap".toggle_breakpoint()<CR>', {silent = true})
+map('n', '<F10>', ':lua require"dap".step_over()<CR>', {silent = true})
+map('n', '<F11>', ':lua require"dap".step_into()<CR>', {silent = true})
+map('n', '<F12>', ':lua require"dap".step_out()<CR>', {silent = true})
+--nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+--nnoremap <silent> <leader>dl :lua require'dap'.run_last()<CR>
