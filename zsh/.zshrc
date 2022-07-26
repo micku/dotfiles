@@ -84,7 +84,6 @@ source "$NVM_DIR/nvm.sh" --no-use  # --no-use increases startup time, must expli
 
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
-
 eval "$(direnv hook zsh)"
 
 ### Added by Zinit's installer
@@ -138,3 +137,15 @@ if [[ $- == *i* ]]; then
         eval $(keychain --eval --ignore-missing --quiet ~/.ssh/id_rsa)
     fi
 fi
+
+export VOLTA_HOME="$HOME/.volta"
+if [ -d "$VOLTA_HOME" ]; then
+    export PATH="$VOLTA_HOME/bin:$PATH"
+fi
+
+GO_HOME="/usr/local/go"
+if [ -d "$GO_HOME" ]; then
+    export PATH="$GO_HOME/bin:$PATH"
+fi
+
+. $HOME/.asdf/asdf.sh
