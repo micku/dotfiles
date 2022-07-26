@@ -33,3 +33,13 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export XDG_CURRENT_DESKTOP=XFCE
 export XDG_CONFIG_DIRS=/etc/xdg
+
+xinput set-prop "$(xinput list --name-only | grep -i touch)" "libinput Tapping Enabled" 1
+xinput set-prop "$(xinput list --name-only | grep -i touch)" "libinput Natural Scrolling Enabled" 1
+
+OLDIFS=$IFS
+IFS=$(echo -en "\n\b")
+for mouse in $(xinput list --name-only | grep -i mouse); do
+    xinput set-prop "$mouse" "libinput Natural Scrolling Enabled" 1
+done
+IFS=$OLDIFS
