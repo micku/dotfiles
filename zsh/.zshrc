@@ -130,3 +130,11 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 if [[ `uname` == "Darwin" ]]; then
     export TERM=xterm-256color-italic
 fi
+
+# is this an interactive shell?
+if [[ $- == *i* ]]; then
+    # set up ssh key server
+    if [[ -x /usr/bin/keychain ]]; then
+        eval $(keychain --eval --ignore-missing --quiet ~/.ssh/id_rsa)
+    fi
+fi
