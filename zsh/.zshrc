@@ -79,21 +79,19 @@ eval "$(pyenv init -)"
 
 # Node Version Manager
 export PATH=~/.nvm/versions/node/v12.18.4/bin:$PATH
-export NVM_DIR="$HOME/.nvm"
-source "/usr/local/opt/nvm/nvm.sh" --no-use  # --no-use increases startup time, must explicitely call `nvm use`
+export NVM_DIR="$HOME/.config/nvm"
+source "$NVM_DIR/nvm.sh" --no-use  # --no-use increases startup time, must explicitely call `nvm use`
 
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
-export ANDROID_HOME=~/Android/Sdk
-export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 eval "$(direnv hook zsh)"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
     command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.zinit/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
@@ -104,11 +102,11 @@ autoload -Uz _zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
-zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
+#zinit ice proto"ssh"
+#zinit light "zinit-zsh/z-a-rust"
+#zinit light "zinit-zsh/z-a-as-monitor"
+#zinit light "zinit-zsh/z-a-patch-dl"
+#zinit light "zinit-zsh/z-a-bin-gem-node"
 
 # Plugins section
 zinit light "zpm-zsh/colors"                          # Enhanced colors
@@ -129,4 +127,6 @@ bindkey '^[[B' history-substring-search-down
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
-export TERM=xterm-256color-italic
+if [[ `uname` == "Darwin" ]]; then
+    export TERM=xterm-256color-italic
+fi
