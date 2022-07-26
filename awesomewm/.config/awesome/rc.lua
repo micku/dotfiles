@@ -215,23 +215,47 @@ local function set_wallpaper(s)
     end
 end
 
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+local default_layout = awful.layout.suit.tile  -- Just to save some typing: use an alias.
+local starting_tags = {
+    { name = "", layout = default_layout, screen = 1 },
+    { name = "", layout = default_layout, screen = 2 },
+    { name = "", layout = default_layout, screen = 2 },
+    { name = "", layout = default_layout, screen = 2 },
+    { name = "", layout = default_layout, screen = 2 },
+    { name = "", layout = default_layout, screen = 2 },
+    { name = "", layout = default_layout, screen = 2 },
+    { name = "﫸", layout = default_layout, screen = 2 },
+
+}
+local tags = sharedtags(starting_tags)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
-    -- Each screen has its own tag table.
-    local names = { "COM", "DE1", "DE2", "DE3", "DE4", "DE5", "DE6", "BRW", "CHT" }
-    local l = awful.layout.suit  -- Just to save some typing: use an alias.
-    local layouts = { l.tile, l.tile, l.tile, l.tile, l.tile,
-        l.tile, l.tile, l.tile, l.tile }
-    awful.tag(names, s, layouts)
-
     beautiful.at_screen_connect(s)
 end)
 -- }}}
+
+screen.connect_signal("property::geometry", function (s)
+    -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+    set_wallpaper(s)
+
+    -- TODO: Choose a default for all of the screens
+    local current_tag = awful.screen.focused().selected_tag
+    for i = 1, 8 do
+        local tag = tags[i]
+        local starting_tag = starting_tags[i]
+
+        if tag then
+            local tag_screen = (starting_tag.screen and starting_tag.screen <= screen.count()) and screen[starting_tag.screen] or screen.primary
+
+            sharedtags.movetag(tag, tag_screen)
+        end
+    end
+    sharedtags.viewonly(current_tag, current_tag.screen)
+
+end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -427,28 +451,21 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
+                        local focused_screen = awful.screen.focused()
+                        local tag = tags[i]
                         if tag then
-                           tag:view_only()
+                            if focused_screen ~= tag.screen then
+                                awful.screen.focus(tag.screen)
+                            end
+                            sharedtags.viewonly(tag, tag.screen)
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
-        -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  function ()
-                      local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
-                  end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = client.focus.screen.tags[i]
+                          local tag = tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
                           end
