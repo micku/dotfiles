@@ -37,6 +37,7 @@ Plug 'tpope/vim-rhubarb'                                        " GitHub plugin 
 Plug 'mobiushorizons/fugitive-stash.vim'                        " Stash plugin for vim-fugitive
 "  UI
 Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula theme mainly for lightline
+Plug 'arcticicestudio/nord-vim'                                 " Nord theme
 Plug 'itchyny/lightline.vim'                                    " Better statusline
 Plug 'ryanoasis/vim-devicons'                                   " DevIcons
 Plug 'kyazdani42/nvim-web-devicons'                             " DevIcons :|
@@ -69,7 +70,7 @@ g.python3_host_prog = '~/.pyenv/versions/neovim3/bin/python'
 
 -- Play nice with colors and themes
 opt.termguicolors = true
-cmd 'colorscheme dracula'
+cmd 'colorscheme nord'
 
 -- Turn on syntax highlighting
 --syntax on
@@ -99,7 +100,7 @@ opt.splitright = true
 -- Enable folding
 opt.foldmethod = 'syntax'
 opt.foldnestmax = 10
-opt.foldlevel =2
+opt.foldlevel = 2
 
 -- Enable mouse scroll in terminal
 opt.mouse = 'a'
