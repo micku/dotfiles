@@ -8,6 +8,9 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi   = require("beautiful.xresources").apply_dpi
 local lain  = require("lain")
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 
 local theme_path = gears.filesystem.get_configuration_dir()  .. "themes/mic/"
 theme = {}
@@ -19,27 +22,37 @@ theme.font              = "Roboto Bold 11"
 theme.font_big          = "Roboto Bold 12"
 theme.font_light        = "Roboto 11"
 theme.taglist_font      = "Roboto 11"
-theme.notification_font = "Roboto Bold 10"
+theme.notification_font = "Roboto 11"
 theme.mono_font         = "Roboto Mono 10"
 theme.mono_font_big     = "Roboto Mono Nerd Font Complete 14"
 
-theme.bg_normal   = "#141A1B"
-theme.bg_focus    = "#222B2E"
-theme.bg_urgent   = "#000000"
-theme.bg_minimize = "#101010"
+theme.bg_normal   = "#2E3440"
+theme.bg_focus    = "#3B4252"
+theme.bg_urgent   = "#4C566A"
+theme.bg_minimize = theme.bg_normal
 theme.bg_systray  = theme.bg_normal
 
-theme.fg_normal   = "#ffffff"
-theme.fg_focus    = "#ffffff"
-theme.fg_urgent   = "#ff0000"
-theme.fg_minimize = "#ffffff"
+theme.fg_normal   = "#ECEFF4"
+theme.fg_focus    = "#E5E9F0"
+theme.fg_urgent   = "#D08770"
+theme.fg_minimize = theme.fg_normal
 
+theme.notification_bg = "#434C5E"
+theme.notification_fg = "#E5E9F0"
+theme.notification_border_color = "#D8DEE9"
+        
+-- Borders
 theme.border_width  = dpi(3)
-theme.border_normal = "#242424"
-theme.border_focus  = "#EBEBFF"
-theme.border_marked = "#EBEBFF"
+theme.border_normal = "#4C566A"
+theme.border_focus  = "#8FBCBB"
+theme.border_marked = "#BF616A"
 
-theme.hotkeys_modifiers_fg = "#2EB398"
+-- Hotkeys screen
+theme.hotkeys_bg = theme.bg_normal
+theme.hotkeys_fg = theme.fg_normal
+theme.hotkeys_modifiers_fg = "#8FBCBB"
+theme.hotkeys_font = theme.font_light
+theme.hotkeys_description_font = theme.hotkeys_font
 
 -- There are other variable sets
 -- overriding the default one when
@@ -49,9 +62,13 @@ theme.hotkeys_modifiers_fg = "#2EB398"
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
---theme.taglist_bg_focus = "#ff0000"
-theme.taglist_fg_focus = "#EDEDED"
-theme.taglist_bg_focus = "#242424"
+theme.taglist_fg_focus = "#E5E9F0"
+theme.taglist_bg_focus = "#5E81AC"
+
+theme.tasklist_fg_normal = theme.fg_normal
+theme.tasklist_bg_normal = theme.bg_normal
+theme.tasklist_fg_focus = "#E5E9F0"
+theme.tasklist_bg_focus = "#5E81AC"
 
 -- Display the taglist squares
 theme.taglist_squares_sel   = theme.icon_dir .. "/square_sel.png"
@@ -60,6 +77,12 @@ theme.taglist_squares_unsel = theme.icon_dir .. "/square_unsel.png"
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
+theme.menu_bg_normal = theme.bg_normal
+theme.menu_fg_normal = theme.fg_normal
+theme.menu_bg_focus = theme.bg_focus
+theme.menu_fg_focus = theme.fg_focus
+theme.menu_border_width = dpi(1)
+theme.menu_border_color = "#D8DEE9"
 theme.menu_submenu_icon = theme.icon_dir .."submenu.png"
 theme.menu_height = dpi(16)
 theme.menu_width  = dpi(140)
@@ -70,33 +93,33 @@ theme.menu_width  = dpi(140)
 --theme.bg_widget = "#cc0000"
 
 -- Define the image to load
-theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
-theme.titlebar_close_button_focus               = theme.default_dir.."/titlebar/close_focus.png"
+-- theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
+-- theme.titlebar_close_button_focus               = theme.default_dir.."/titlebar/close_focus.png"
+-- 
+-- theme.titlebar_minimize_button_normal           = theme.default_dir.."/titlebar/minimize_normal.png"
+-- theme.titlebar_minimize_button_focus            = theme.default_dir.."/titlebar/minimize_focus.png"
+-- 
+-- theme.titlebar_ontop_button_normal_inactive     = theme.default_dir.."/titlebar/ontop_normal_inactive.png"
+-- theme.titlebar_ontop_button_focus_inactive      = theme.default_dir.."/titlebar/ontop_focus_inactive.png"
+-- theme.titlebar_ontop_button_normal_active       = theme.default_dir.."/titlebar/ontop_normal_active.png"
+-- theme.titlebar_ontop_button_focus_active        = theme.default_dir.."/titlebar/ontop_focus_active.png"
+-- 
+-- theme.titlebar_sticky_button_normal_inactive    = theme.default_dir.."/titlebar/sticky_normal_inactive.png"
+-- theme.titlebar_sticky_button_focus_inactive     = theme.default_dir.."/titlebar/sticky_focus_inactive.png"
+-- theme.titlebar_sticky_button_normal_active      = theme.default_dir.."/titlebar/sticky_normal_active.png"
+-- theme.titlebar_sticky_button_focus_active       = theme.default_dir.."/titlebar/sticky_focus_active.png"
+-- 
+-- theme.titlebar_floating_button_normal_inactive  = theme.default_dir.."/titlebar/floating_normal_inactive.png"
+-- theme.titlebar_floating_button_focus_inactive   = theme.default_dir.."/titlebar/floating_focus_inactive.png"
+-- theme.titlebar_floating_button_normal_active    = theme.default_dir.."/titlebar/floating_normal_active.png"
+-- theme.titlebar_floating_button_focus_active     = theme.default_dir.."/titlebar/floating_focus_active.png"
+-- 
+-- theme.titlebar_maximized_button_normal_inactive = theme.default_dir.."/titlebar/maximized_normal_inactive.png"
+-- theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/maximized_focus_inactive.png"
+-- theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
+-- theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
 
-theme.titlebar_minimize_button_normal           = theme.default_dir.."/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus            = theme.default_dir.."/titlebar/minimize_focus.png"
-
-theme.titlebar_ontop_button_normal_inactive     = theme.default_dir.."/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive      = theme.default_dir.."/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active       = theme.default_dir.."/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active        = theme.default_dir.."/titlebar/ontop_focus_active.png"
-
-theme.titlebar_sticky_button_normal_inactive    = theme.default_dir.."/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive     = theme.default_dir.."/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active      = theme.default_dir.."/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active       = theme.default_dir.."/titlebar/sticky_focus_active.png"
-
-theme.titlebar_floating_button_normal_inactive  = theme.default_dir.."/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive   = theme.default_dir.."/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active    = theme.default_dir.."/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active     = theme.default_dir.."/titlebar/floating_focus_active.png"
-
-theme.titlebar_maximized_button_normal_inactive = theme.default_dir.."/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
-
-theme.wallpaper = theme_path .. "dongbiao-lu-3-03-cut.jpg"
+theme.wallpaper = theme_path .. "another-world-1609.jpg"
 
 -- You can use your own layout icons like this:
 --theme.layout_cornernw   = themes_path .. "cesious/layouts/cornernw.png"
@@ -119,6 +142,9 @@ theme.layout_floating   = theme.icon_dir .. "/floating.png"
 theme.clock             = theme.icon_dir .. "/clock.png"
 theme.calendar          = theme.icon_dir .. "/cal.png"
 
+theme.wibar_bg = theme.bg_normal
+theme.wibar_fg = theme.fg_normal
+
 --theme.awesome_icon = themes_path .. "cesious/icons/manjaro64.png"
 theme.awesome_icon   = theme.icon_dir .. "/awesome_icon.png"
 
@@ -134,14 +160,13 @@ blue        = "#9EBABA"
 local mytextclock = wibox.widget.textclock(
     markup("#FFFFFF",
         space3
-        .. markup.font(theme.font_big, "")
         .. markup.font(theme.font, " ")
         .. markup.font(theme.font_light, "%H:%M")
         .. space3
     )
 )
 mytextclock.font = theme.font
-local clockbg = wibox.container.background(mytextclock, theme.bg_focus, gears.shape.rectangle)
+local clockbg = wibox.container.background(mytextclock, theme.bg_normal, gears.shape.rectangle)
 local clockwidget = wibox.container.margin(clockbg, dpi(0), dpi(3), dpi(5), dpi(5))
 
 -- Calendar
@@ -150,17 +175,17 @@ local mytextcalendar = wibox.widget.textclock(
         space3
         .. markup.font(theme.font_big, "")
         .. markup.font(theme.font, " ")
-        .. markup.font(theme.font_light,  " %d %b")
+        .. markup.font(theme.font_light,  " %b %d")
         .. space3
     )
 )
-local calbg = wibox.container.background(mytextcalendar, theme.bg_focus, gears.shape.rectangle)
+local calbg = wibox.container.background(mytextcalendar, theme.bg_normal, gears.shape.rectangle)
 local calendarwidget = wibox.container.margin(calbg, dpi(0), dpi(0), dpi(5), dpi(5))
 theme.cal = lain.widget.cal({
     attach_to = { mytextclock, mytextcalendar },
     notification_preset = {
-        fg = "#FFFFFF",
-        bg = theme.bg_normal,
+        fg = "#E5E9F0",
+        bg = "#434C5E",
         position = "top_right",
         font = theme.mono_font
     }
@@ -178,7 +203,7 @@ local cpu = lain.widget.cpu({
         )
     end
 })
-local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
+local cpubg = wibox.container.background(cpu.widget, theme.bg_normal, gears.shape.rectangle)
 local cpuwidget = wibox.container.margin(cpubg, dpi(0), dpi(0), dpi(5), dpi(5))
 
 function round(num, numDecimalPlaces)
@@ -197,7 +222,7 @@ local ram = lain.widget.mem({
         )
     end
 })
-local rambg = wibox.container.background(ram.widget, theme.bg_focus, gears.shape.rectangle)
+local rambg = wibox.container.background(ram.widget, theme.bg_normal, gears.shape.rectangle)
 local ramwidget = wibox.container.margin(rambg, dpi(0), dpi(0), dpi(5), dpi(5))
 
 separator = wibox.widget.textbox(' <span color="' .. blue .. '">| </span>')
@@ -210,8 +235,7 @@ mykeyboardlayout.widget.align = "center"
 
 -- Custom systray
 local systray = wibox.widget.systray()
-systray.set_base_size(dpi(18))
-local systraywidget = wibox.container.margin(systray, dpi(0), dpi(0), dpi(4), dpi(4))
+local systraywidget = wibox.container.margin(systray, dpi(0), dpi(0), dpi(5), dpi(5))
 
 function theme.at_screen_connect(s)
     -- Create a promptbox for each screen
@@ -233,8 +257,6 @@ function theme.at_screen_connect(s)
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
         style   = {
-            font       = theme.font_light,
-            font_focus = theme.font,
             align      = "center",
         },
         --layout   = {
@@ -253,27 +275,27 @@ function theme.at_screen_connect(s)
         --    spacing = 1,
         --    layout  = wibox.layout.fixed.horizontal
         --},
-        --widget_template = {
-        --    {
-        --        wibox.widget.base.make_widget(),
-        --        forced_height = 5,
-        --        id            = 'background_role',
-        --        widget        = wibox.container.background,
-        --    },
-        --    {
-        --        {
-        --            id     = 'clienticon',
-        --            widget = awful.widget.clienticon,
-        --        },
-        --        margins = 6,
-        --        widget  = wibox.container.margin
-        --    },
-        --    nil,
-        --    create_callback = function(self, c, index, objects) --luacheck: no unused args
-        --        self:get_children_by_id('clienticon')[1].client = c
-        --    end,
-        --    layout = wibox.layout.align.vertical,
-        --},
+        widget_template = {
+            {
+                wibox.widget.base.make_widget(),
+                forced_height = 5,
+                id            = 'background_role',
+                widget        = wibox.container.background,
+            },
+            {
+                {
+                    id     = 'clienticon',
+                    widget = awful.widget.clienticon,
+                },
+                margins = 6,
+                widget  = wibox.container.margin,
+            },
+            nil,
+            create_callback = function(self, c, index, objects) --luacheck: no unused args
+                self:get_children_by_id('clienticon')[1].client = c
+            end,
+            layout = wibox.layout.align.vertical,
+        },
     }
 
     -- Create the wibox
@@ -282,17 +304,27 @@ function theme.at_screen_connect(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = "none",
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             s.mytaglist,
             s.mypromptbox,
-            separator,
-            s.mytasklist,
         },
-        nil,
+        s.mytasklist,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             systraywidget,
+            separator,
+            volume_widget{
+                device = 'default',
+                widget_type = 'horizontal_bar'
+            },
+            separator,
+            brightness_widget(),
+            separator,
+            batteryarc_widget{
+                show_current_level = true
+            },
             separator,
             mykeyboardlayout,
             separator,
@@ -303,7 +335,6 @@ function theme.at_screen_connect(s)
             cpuwidget,
             separator,
             calendarwidget,
-            separator,
             clockwidget,
             separator,
             s.mylayoutbox,

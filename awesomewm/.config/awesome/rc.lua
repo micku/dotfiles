@@ -16,6 +16,12 @@ local freedesktop = require("freedesktop")
 local dpi   = require("beautiful.xresources").apply_dpi
 -- Lain
 local lain  = require("lain")
+-- Volume widget
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+-- Brightness widget
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+-- Tags management
+local sharedtags = require("awesome-sharedtags")
 -- Enable VIM help for hotkeys widget when client with matching name is opened:
 require("awful.hotkeys_popup.keys.vim")
 
@@ -49,8 +55,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/mic/theme.lua
 beautiful.icon_theme        = "Papirus-Dark"
 beautiful.bg_normal         = "#141A1B"
 beautiful.bg_focus          = "#222B2E"
-beautiful.font              = "Noto Sans Regular 10"
-beautiful.notification_font = "Noto Sans Bold 14"
+beautiful.font              = "NotoSans Nerd Font 10"
 beautiful.useless_gap       = dpi(3)
 
 -- This is used later as the default terminal and editor to run.
@@ -58,6 +63,18 @@ browser = "exo-open --launch WebBrowser" or "firefox"
 filemanager = "exo-open --launch FileManager" or "thunar"
 gui_editor = "mousepad"
 terminal = os.getenv("TERMINAL") or "lxterminal"
+
+-- Defaults
+naughty.config.defaults.ontop = true
+naughty.config.defaults.icon_size = dpi(32)
+naughty.config.defaults.timeout = 5
+naughty.config.defaults.title = 'System Notification'
+naughty.config.defaults.margin = dpi(16)
+naughty.config.defaults.border_width = 0
+naughty.config.defaults.position = 'top_right'
+naughty.config.defaults.shape = function(cr, w, h)
+	gears.shape.rounded_rect(cr, w, h, dpi(6))
+end
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -224,6 +241,8 @@ root.buttons(gears.table.join(
     awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
+
+mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
@@ -585,48 +604,8 @@ client.connect_signal("unfocus", function(c)
     --c.opacity = 0.8
 end)
 
--- Disable borders on lone windows
--- Handle border sizes of clients.
-for s = 1, screen.count() do screen[s]:connect_signal("arrange", function ()
-  local clients = awful.client.visible(s)
-  local layout = awful.layout.getname(awful.layout.get(s))
-
-  for _, c in pairs(clients) do
-    -- No borders with only one humanly visible client
-    if c.maximized then
-      -- NOTE: also handled in focus, but that does not cover maximizing from a
-      -- tiled state (when the client had focus).
-      c.border_width = 0
-    elseif c.floating or layout == "floating" then
-      c.border_width = beautiful.border_width
-    elseif layout == "max" or layout == "fullscreen" then
-      c.border_width = 0
-    else
-      local tiled = awful.client.tiled(c.screen)
-      if #tiled == 1 then -- and c == tiled[1] then
-        tiled[1].border_width = 0
-        -- if layout ~= "max" and layout ~= "fullscreen" then
-        -- XXX: SLOW!
-        -- awful.client.moveresize(0, 0, 2, 0, tiled[1])
-        -- end
-      else
-        c.border_width = beautiful.border_width
-      end
-    end
-  end
-end)
-end
-
 
 -- }}}
-
---client.connect_signal("property::floating", function (c)
---    if c.floating then
---        awful.titlebar.show(c)
---    else
---        awful.titlebar.hide(c)
---    end
---end)
 
 awful.spawn.with_shell("~/.config/awesome/autorun.sh")
 
