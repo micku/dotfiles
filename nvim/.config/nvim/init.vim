@@ -108,6 +108,9 @@ opt.mouse = 'a'
 -- Required for operations modifying multiple buffers like rename.
 opt.hidden = true
 
+-------------------------- UI --------------------------
+opt.winbar = '%=%m %f%='
+opt.laststatus = 3
 
 ---------------------- FILE TYPES ----------------------
 
