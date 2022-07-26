@@ -314,17 +314,17 @@ globalkeys = gears.table.join(
               {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey     }, "b", function () awful.spawn(browser)          end,
               {description = "launch Browser", group = "launcher"}),
-    awful.key({ modkey, "Control"}, "Escape", function () awful.spawn("/usr/bin/rofi -show drun -modi drun") end,
+    awful.key({ "Mod1"            }, "space", function () awful.spawn("/usr/bin/rofi -show drun -modi drun") end,
               {description = "launch rofi", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn("/usr/bin/thunar")            end,
               {description = "launch filemanager", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                       end,
               {description = "select previous", group = "layout"}),
-    awful.key({                   }, "Print", function () awful.spawn("/usr/bin/i3-scrot -d")   end,
+    awful.key({                   }, "Print", function () awful.util.spawn_with_shell("gnome-screenshot")   end,
               {description = "capture a screenshot", group = "screenshot"}),
-    awful.key({"Control"          }, "Print", function () awful.spawn("/usr/bin/i3-scrot -w")   end,
-              {description = "capture a screenshot of active window", group = "screenshot"}),
-    awful.key({"Shift"            }, "Print", function () awful.spawn("/usr/bin/i3-scrot -s")   end,
+    awful.key({"Control"          }, "Print", function () awful.util.spawn_with_shell("gnome-screenshot -w")   end,
+              {description = "capture a screenshot of a window", group = "screenshot"}),
+    awful.key({"Shift"            }, "Print", function () awful.util.spawn_with_shell("gnome-screenshot -a")   end,
               {description = "capture a screenshot of selection", group = "screenshot"}),
 
     awful.key({ modkey, "Control" }, "n",
@@ -357,8 +357,22 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"}),
 
     -- System
-    awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("dm-tool lock") end,
-              {description = "locks the system", group = "system"})
+    awful.key({ modkey, "Mod1" }, "l", function () awful.util.spawn("betterlockscreen --lock blur --span --off 10") end,
+              {description = "locks the system", group = "system"}),
+    awful.key({ modkey, "Mod1" }, "s", function () awful.util.spawn("betterlockscreen --suspend blur --span") end,
+              {description = "suspends the system", group = "system"}),
+    awful.key({ modkey         }, "space", function () mykeyboardlayout.next_layout(); end,
+              {description = "switches keyboard layout", group = "system"}),
+    awful.key({                }, "XF86AudioRaiseVolume", function () volume_widget.inc(5); end,
+              {description = "increase volume", group = "system"}),
+    awful.key({                }, "XF86AudioLowerVolume", function () volume_widget.dec(5); end,
+              {description = "decrease volume", group = "system"}),
+    awful.key({                }, "XF86AudioMute", function () volume_widget.toggle(); end,
+              {description = "mute volume", group = "system"}),
+    awful.key({                }, "XF86MonBrightnessDown", function () brightness_widget.dec(); end,
+              {description = "decrease brightness", group = "system"}),
+    awful.key({                }, "XF86MonBrightnessUp", function () brightness_widget.inc(); end,
+              {description = "increase brightness", group = "system"}),
 )
 
 clientkeys = gears.table.join(
@@ -514,8 +528,8 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 	
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    { rule = { class = "Slack" },
+      properties = { tag = tags[1] } },
 
 
 }
