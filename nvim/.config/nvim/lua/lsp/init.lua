@@ -50,7 +50,9 @@ end
 
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { "tsserver", "graphql" }
+-- Installation instructions:
+-- * sumneko_lua: https://github.com/sumneko/lua-language-server/wiki/Getting-Started#command-line
+local servers = { "tsserver", "graphql", "sumneko_lua" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
