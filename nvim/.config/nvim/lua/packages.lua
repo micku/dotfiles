@@ -37,14 +37,10 @@ return require('packer').startup(function(use)
   --use('itchyny/lightline.vim')                                   -- Better statusline
   use('ryanoasis/vim-devicons')                                  -- DevIcons
   use('kyazdani42/nvim-web-devicons')                            -- DevIcons :|
-  use({
-    'glepnir/galaxyline.nvim',
-    branch = 'main',
-    config = function()
-      require('statusline')
-    end,
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-  })
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   use('glepnir/lspsaga.nvim')                                    -- LSP UI
   use('folke/zen-mode.nvim')                                     -- Zen mode
   --  File explorer
