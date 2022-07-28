@@ -224,6 +224,7 @@ local starting_tags = {
     { name = "", layout = default_layout, screen = 2 },
     { name = "", layout = default_layout, screen = 2 },
     { name = "", layout = default_layout, screen = 2 },
+    { name = "", layout = default_layout, screen = 2 },
     { name = "﫸", layout = default_layout, screen = 2 },
 
 }
@@ -243,7 +244,7 @@ screen.connect_signal("property::geometry", function (s)
 
     -- TODO: Choose a default for all of the screens
     local current_tag = awful.screen.focused().selected_tag
-    for i = 1, 8 do
+    for i = 1, 9 do
         local tag = tags[i]
         local starting_tag = starting_tags[i]
 
@@ -397,6 +398,12 @@ globalkeys = gears.table.join(
               {description = "decrease brightness", group = "system"}),
     awful.key({                }, "XF86MonBrightnessUp", function () brightness_widget.inc(); end,
               {description = "increase brightness", group = "system"}),
+    awful.key({                }, "XF86AudioPlay", function () awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end,
+              {description = "Spotify play/pause", group = "system"}),
+    awful.key({                }, "XF86AudioNext", function () awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end,
+              {description = "Spotify next track", group = "system"}),
+    awful.key({                }, "XF86AudioPrev", function () awful.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end,
+              {description = "Spotify previous track", group = "system"})
 )
 
 clientkeys = gears.table.join(
@@ -543,12 +550,13 @@ awful.rules.rules = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
-	
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    { rule = { class = "Slack" },
-      properties = { tag = tags[1] } },
 
-
+      -- Set Slack to always map on  tag.
+      { rule = { class = "Slack" },
+        properties = { tag = tags[1] } },
+      -- Set Spotify to always map on  tag.
+      { rule = { class = "Spotify" },
+        properties = { tag = tags[8] } },
 }
 -- }}}
 
