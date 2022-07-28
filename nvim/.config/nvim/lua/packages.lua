@@ -48,7 +48,7 @@ return require('packer').startup(function(use)
   --  Debugging
   use('mfussenegger/nvim-dap')                                   -- Debug Adapter Protocol
   use('rcarriga/nvim-dap-ui')                                    -- UI for DAP
-
+  use('puremourning/vimspector')                                 -- Debbugging UI
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

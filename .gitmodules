@@ -1,0 +1,3 @@
+[submodule "nvim/dev/personal/microsoft/vscode-node-debug2"]
+	path = nvim/dev/personal/microsoft/vscode-node-debug2
+	url = https://github.com/microsoft/vscode-node-debug2.git
