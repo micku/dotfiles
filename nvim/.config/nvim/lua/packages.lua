@@ -21,11 +21,18 @@ return require('packer').startup(function(use)
   use('editorconfig/editorconfig-vim')                           -- .editorconfig support
   use('neovim/nvim-lspconfig')                                   -- Common config for LSP
   use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}      -- Better syntax highlighting
-  use('hrsh7th/nvim-compe')                                      -- Autocompletion
   use('onsails/lspkind-nvim')                                    -- LSP pictograms
   use('OmniSharp/omnisharp-vim')                                 -- C# LSP
   use('mhartington/formatter.nvim')                              -- Code formatter
   use{'michaelb/sniprun', run = 'bash install.sh'}               -- Execute snippets of code
+  -- Autocompletion
+  use('hrsh7th/cmp-nvim-lsp')
+  use('hrsh7th/cmp-buffer')
+  use('hrsh7th/cmp-path')
+  use('hrsh7th/cmp-cmdline')
+  use('hrsh7th/nvim-cmp')                                        -- Autocompletion
+  use('L3MON4D3/LuaSnip')                                        -- Snippets
+  use('saadparwaiz1/cmp_luasnip')
   --  Git
   use('tpope/vim-fugitive')                                      -- Git inside Vim
   use('tommcdo/vim-fubitive')                                    -- Bitbucket plugin for vim-fugitive

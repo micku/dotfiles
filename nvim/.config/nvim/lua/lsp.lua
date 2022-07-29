@@ -53,8 +53,10 @@ end
 -- Installation instructions:
 -- * sumneko_lua: https://github.com/sumneko/lua-language-server/wiki/Getting-Started#command-line
 local servers = { "tsserver", "graphql", "sumneko_lua" }
+-- Setup nvim-cmp LSP integration
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+  nvim_lsp[lsp].setup { on_attach = on_attach, capabilities = capabilities }
 end
 
 g.OmniSharp_server_use_mono = 1
