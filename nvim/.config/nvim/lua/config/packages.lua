@@ -1,12 +1,14 @@
 local fn = vim.fn
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local is_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  is_bootstrap = true
+  fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
   vim.cmd [[packadd packer.nvim]]
 end
 
-return require('packer').startup(function(use)
+require('packer').startup(function(use)
   -- List of plugins
   --  Lua
   use('nvim-lua/plenary.nvim')                                   -- Lua utils
@@ -16,10 +18,17 @@ return require('packer').startup(function(use)
   --  Navigation
   use{'junegunn/fzf', run = 'fzf#install()'}                     -- Fuzzy search
   use('junegunn/fzf.vim')                                        -- ^^^^^ ^^^^^^
-  use('christoomey/vim-tmux-navigator')                          -- Tmux + Vim splits
+  use('alexghergh/nvim-tmux-navigation')                          -- Tmux + Vim splits
   --  Generic dev
   use('editorconfig/editorconfig-vim')                           -- .editorconfig support
-  use('neovim/nvim-lspconfig')                                   -- Common config for LSP
+  use{
+      'neovim/nvim-lspconfig',
+      requires = {
+          'williamboman/mason.nvim',
+          'williamboman/mason-lspconfig.nvim',
+          'folke/neodev.nvim',
+      },
+  }                                   -- Common config for LSP
   use{'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}      -- Better syntax highlighting
   use('onsails/lspkind-nvim')                                    -- LSP pictograms
   use('OmniSharp/omnisharp-vim')                                 -- C# LSP
@@ -53,13 +62,41 @@ return require('packer').startup(function(use)
   --  File explorer
   use('tamago324/lir.nvim')                                      -- File explorer
   --  Debugging
-  use('mfussenegger/nvim-dap')                                   -- Debug Adapter Protocol
-  use('rcarriga/nvim-dap-ui')                                    -- UI for DAP
   use('puremourning/vimspector')                                 -- Debbugging UI
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
-  if packer_bootstrap then
+  if is_bootstrap then
     require('packer').sync()
   end
 end)
+
+if is_bootstrap then
+  print '=================================='
+  print '    Plugins are being installed'
+  print '    Wait until Packer completes,'
+  print '       then restart nvim'
+  print '=================================='
+  return
+end
+
+local reload_config = function()
+  local prefix = 'config'
+  local prefix_with_dot = prefix .. '.'
+  for key, value in pairs(package.loaded) do
+    if key == prefix or key:sub(1, #prefix_with_dot) == prefix_with_dot then
+      package.loaded[key] = nil
+    end
+  end
+
+  dofile(fn.stdpath('config') .. '/init.lua')
+
+  --vim.cmd('silent! LspStop | silent! LspStart | PackerCompile')
+end
+
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePost', {
+  callback = reload_config, --'source $MYVIMRC | silent! LspStop | silent! LspStart | PackerCompile',
+  group = packer_group,
+  pattern = fn.expand '$MYVIMRC',
+})

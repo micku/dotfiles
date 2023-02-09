@@ -1,9 +1,11 @@
-require('packages')
+require('config.packages')
 
 local cmd = vim.cmd
-local api = vim.api
 local opt = vim.opt
 local g = vim.g
+
+-- Neovim help, docs and completion
+require('neodev').setup()
 
 -------------------- NEOVIM PYTHON CONFIGURATION --------------------
 
@@ -29,13 +31,13 @@ cmd 'highlight Comment cterm=italic ctermfg=8'
 cmd 'highlight Todo ctermbg=8 ctermfg=6'
 cmd 'highlight Statement cterm=bold ctermfg=15'
 
-require('options')
+require('config.options')
 
 -- Enable matchit plugin which ships with vim and greatly enhances '%'
 cmd 'runtime macros/matchit.vim'
 
 -- Set , as mapleader
-g.mapleader = ','
+g.mapleader = ' '
 
 -- Yank to and paste from system clipboard
 opt.clipboard = opt.clipboard + 'unnamedplus'
@@ -68,13 +70,13 @@ cmd([[
 
 ---------------------- PLUGINS ----------------------
 
-require('fuzzysearch')
-require('git')
-require('treesitter')
-require('codeFormat')
-require('lsp')
-require('autocompletion')
-require('fileExplorer')
-require('bindings')
-require('debugging')
-require('statusline')
+require('config.fuzzysearch')
+require('config.git')
+require('config.treesitter')
+require('config.codeFormat')
+require('config.lsp')
+require('config.autocompletion')
+require('config.fileExplorer')
+require('config.bindings')
+require('config.debugging')
+require('config.statusline')
