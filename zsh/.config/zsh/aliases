@@ -5,3 +5,7 @@ alias gitu='git add . && git commit && git push'
 alias g='git'
 alias la='ls -al'
 alias v='nvim'
+
+if [ -f ~/.config/zsh-work/aliases ]; then
+    source ~/.config/zsh-work/aliases
+fi
