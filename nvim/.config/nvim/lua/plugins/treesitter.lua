@@ -15,7 +15,9 @@ return {
                 "rust",
                 "lua",
                 "python",
-                "c_sharp"
+                "c_sharp",
+                "markdown",
+                "markdown_inline"
             },
             highlight = {
                 enable = true,
