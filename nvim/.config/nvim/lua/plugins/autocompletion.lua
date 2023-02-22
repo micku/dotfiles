@@ -1,4 +1,4 @@
-require ("plugins.lsp")
+local servers = require ("plugins.lsp").servers
 
 return {
     "hrsh7th/nvim-cmp",
@@ -23,7 +23,7 @@ return {
         end
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-	for _, lsp in ipairs(Servers) do
+	for _, lsp in ipairs(servers) do
 	    require("lspconfig")[lsp].setup {capabilities = capabilities}
 	end
 
