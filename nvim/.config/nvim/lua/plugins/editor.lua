@@ -1,6 +1,27 @@
 return {
     "tpope/vim-sleuth",
     {
+	"lukas-reineke/indent-blankline.nvim",
+	config = function ()
+            vim.opt.list = true
+            vim.opt.listchars:append "eol:↴"
+
+            require("indent_blankline").setup {
+                char = "┊",
+                show_end_of_line = true,
+                space_char_blankline = " ",
+		show_current_context = true,
+                show_trailing_blankline_indent = false,
+            }
+	end
+    },
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end
+    },
+    {
         "folke/zen-mode.nvim",
         keys = {
             {"<leader>z", ":ZenMode<CR>", desc = "Toggles zen mode", silent = true}
@@ -52,6 +73,17 @@ return {
 
             -- Auto reload files modified outside of the editor
             vim.o.autoread = true
+
+            -- Enable folding
+            vim.opt.foldmethod = 'syntax'
+            vim.opt.foldnestmax = 10
+            vim.opt.foldlevel = 2
+
+            -- Yank to and paste from system clipboard
+            vim.opt.clipboard = vim.opt.clipboard + 'unnamedplus'
+
+            -- Required for operations modifying multiple buffers like rename.
+            vim.opt.hidden = true
         end
     },
     {
