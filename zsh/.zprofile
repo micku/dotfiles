@@ -2,3 +2,7 @@
 export PATH="$PATH:$HOME/.rvm/bin"
 
 alias loadrvm='[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"' # Load RVM into a shell session *as a function*
+
+if (( $+commands[luarocks] )); then
+    eval `luarocks path --bin`
+fi
