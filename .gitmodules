@@ -1,3 +1,12 @@
 [submodule "nvim/dev/personal/microsoft/vscode-node-debug2"]
 	path = nvim/dev/personal/microsoft/vscode-node-debug2
 	url = https://github.com/microsoft/vscode-node-debug2.git
+[submodule "awesomewm/.config/awesome/awesome-sharedtags"]
+	path = awesomewm/.config/awesome/awesome-sharedtags
+	url = git@github.com:micku/awesome-sharedtags.git
+[submodule "awesomewm/.config/awesome/awesome-wm-widgets"]
+	path = awesomewm/.config/awesome/awesome-wm-widgets
+	url = git@github.com:streetturtle/awesome-wm-widgets.git
+[submodule "awesomewm/.config/awesome/lain"]
+	path = awesomewm/.config/awesome/lain
+	url = https://github.com/lcpz/lain.git
