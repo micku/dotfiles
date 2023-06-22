@@ -43,3 +43,6 @@ for mouse in $(xinput list --name-only | grep -i mouse); do
     xinput set-prop "$mouse" "libinput Natural Scrolling Enabled" 1
 done
 IFS=$OLDIFS
+
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
