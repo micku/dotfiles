@@ -1,28 +1,37 @@
-local servers = {"tsserver", "graphql", "lua_ls"}
+local language_servers = {"tsserver", "graphql", "lua_ls", "jdtls"}
 
 return {
-    servers = servers,
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    servers = language_servers,
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        config = function()
+            require("mason").setup({})
+        end
+    },
     {
         "neovim/nvim-lspconfig",
         event = "BufRead",
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
         dependencies = {
-            "folke/neodev.nvim", -- Utils for Neovim config editing/development
-            "nvim-tree/nvim-web-devicons",
-        },
-        keys = {
+            "williamboman/mason.nvim",
+            "neovim/nvim-lspconfig",
         },
         config = function()
-            require("mason").setup({})
             require("mason-lspconfig").setup({
-                ensure_installed = servers,
+                ensure_installed = language_servers,
             })
-
+        end
+    },
+    { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+    {
+        "folke/neodev.nvim", -- Utils for Neovim config editing/development
+        config = function()
             require("neodev").setup()
         end
     },
-    { 'j-hui/fidget.nvim', opts = {} },
     {
         "glepnir/lspsaga.nvim",
         event = "BufRead",
