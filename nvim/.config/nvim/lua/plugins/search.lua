@@ -22,10 +22,11 @@ return {
             {"<leader>fi", "<cmd>Telescope lsp_implementations<cr>", desc = "Find implementations (LSP)"},
             {"<leader>fx", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Find errors (LSP)"},
 
-            {"<leader><space>", ":noh<cr>", desc = "Remove search higlight"},
+            {"<leader><space>", ":noh<cr>", desc = "Remove search highlight"},
         },
         config = function()
-            require("telescope").setup({
+            local telescope = require("telescope")
+            telescope.setup({
                 defaults = {
                     path_display = {
                         shorten = {
@@ -45,6 +46,8 @@ return {
                     }
                 }
             })
+
+            telescope.load_extension("fzf")
         end
     }
 }

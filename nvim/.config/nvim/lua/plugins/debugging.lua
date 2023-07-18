@@ -5,12 +5,12 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {"rcarriga/nvim-dap-ui"},
     keys = {
-      {"<F4>", "<cmd>DapTerminate<cr>", desc = "Debug continue"},
+      {"<F4>", "<cmd>DapTerminate<cr>", desc = "Debug terminate"},
       {"<F5>", "<cmd>DapContinue<cr>", desc = "Debug continue"},
-      {"<F9>", "<cmd>DapToggleBreakpoint<cr>", desc = "Debug continue"},
-      {"<F10>", "<cmd>DapStepOver<cr>", desc = "Debug continue"},
-      {"<F11>", "<cmd>DapStepInto<cr>", desc = "Debug continue"},
-      {"<F12>", "<cmd>DapStepOut<cr>", desc = "Debug continue"},
+      {"<F9>", "<cmd>DapToggleBreakpoint<cr>", desc = "Toggle breakpoint"},
+      {"<F10>", "<cmd>DapStepOver<cr>", desc = "Debug step over"},
+      {"<F11>", "<cmd>DapStepInto<cr>", desc = "Debug step into"},
+      {"<F12>", "<cmd>DapStepOut<cr>", desc = "Debug step out"},
     },
     config = function ()
       local dap, dapui = require("dap"), require("dapui")
