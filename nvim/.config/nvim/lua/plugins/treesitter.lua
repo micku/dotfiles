@@ -17,7 +17,8 @@ return {
                 "python",
                 "c_sharp",
                 "markdown",
-                "markdown_inline"
+                "markdown_inline",
+                "java",
             },
             highlight = {
                 enable = true,

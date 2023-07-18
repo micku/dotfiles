@@ -40,4 +40,10 @@ return {
             vim.opt.mouse = "a"
         end
     },
+    {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup({})
+        end
+    },
 }

@@ -1,4 +1,4 @@
-local servers = require ("plugins.lsp").servers
+local language_servers = {"tsserver", "graphql", "lua_ls"}
 
 return {
     "hrsh7th/nvim-cmp",
@@ -25,7 +25,8 @@ return {
         end
 
         local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-        for _, lsp in ipairs(servers) do
+        for _, lsp in ipairs(language_servers) do
+            -- TODO: This should stay in lsp.lua, but seems like this whole file needs to be revisited.
             require("lspconfig")[lsp].setup {capabilities = capabilities}
         end
 
