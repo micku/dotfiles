@@ -204,6 +204,9 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 local function set_wallpaper(s)
+    -- TODO: Set the appropriate wallpaper size and ratio based
+    --  on the screen size and orientation
+    -- TODO: Handle multi-screen wallpapers?
     -- Wallpaper
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
@@ -215,17 +218,18 @@ local function set_wallpaper(s)
     end
 end
 
-local default_layout = awful.layout.suit.tile  -- Just to save some typing: use an alias.
+-- TODO: Improve the tags logic so they are placed in the appropriate screen
+--  based on number of connected screens, their size and their orientation.
 local starting_tags = {
-    { name = "", layout = default_layout, screen = 1 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "", layout = default_layout, screen = 2 },
-    { name = "﫸", layout = default_layout, screen = 2 },
+    { name = "", layout = awful.layout.suit.max,   screen = 2 },
+    { name = "", layout = awful.layout.suit.tile,  screen = 1 },
+    { name = "", layout = awful.layout.suit.tile,  screen = 2 },
+    { name = "▤", layout = awful.layout.suit.max,   screen = 1 },
+    { name = "", layout = awful.layout.suit.tile,  screen = 1 },
+    { name = "", layout = awful.layout.suit.tile,  screen = 1 },
+    { name = "", layout = awful.layout.suit.max,   screen = 3 },
+    { name = "﫸", layout = awful.layout.suit.tile, screen = 2 },
+    { name = "﫸", layout = awful.layout.suit.tile, screen = 1 },
 
 }
 local tags = sharedtags(starting_tags)
@@ -241,21 +245,6 @@ end)
 screen.connect_signal("property::geometry", function (s)
     -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
     set_wallpaper(s)
-
-    -- TODO: Choose a default for all of the screens
-    local current_tag = awful.screen.focused().selected_tag
-    for i = 1, 9 do
-        local tag = tags[i]
-        local starting_tag = starting_tags[i]
-
-        if tag then
-            local tag_screen = (starting_tag.screen and starting_tag.screen <= screen.count()) and screen[starting_tag.screen] or screen.primary
-
-            sharedtags.movetag(tag, tag_screen)
-        end
-    end
-    sharedtags.viewonly(current_tag, current_tag.screen)
-
 end)
 
 -- {{{ Mouse bindings
@@ -367,7 +356,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey }, "ö",
+    awful.key({ modkey, "Mod1" }, "r",
               function ()
                   awful.prompt.run {
                     prompt       = "Run Lua code: ",
@@ -556,7 +545,10 @@ awful.rules.rules = {
         properties = { tag = tags[1] } },
       -- Set Spotify to always map on  tag.
       { rule = { class = "Spotify" },
-        properties = { tag = tags[8] } },
+        properties = { tag = tags[7] } },
+      -- Set Obsidian to always map on ▤ tag.
+      { rule = { class = "Obsidian" },
+        properties = { tag = tags[1] } },
 }
 -- }}}
 
