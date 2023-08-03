@@ -8,6 +8,17 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         event = "BufRead",
+        keys = {
+            {"K", vim.lsp.buf.hover, desc = "Show doc tooltip", { noremap=true, silent=true }},
+            {"gd", vim.lsp.buf.definition, desc = "Go to definition", { noremap=true, silent=true }},
+            {"gD", vim.lsp.buf.declaration, desc = "Go to type definition", { noremap=true, silent=true }},
+            {"gi", vim.lsp.buf.implementation, desc = "Go to implementation", { noremap=true, silent=true }},
+            {"gh", vim.lsp.buf.references, desc = "Find all references", { noremap=true, silent=true }},
+            {"gr", vim.lsp.buf.rename, desc = "Rename", { noremap=true, silent=true }},
+            {"[d", vim.diagnostic.goto_prev, desc = "Go to prev diagnostic", { noremap=true, silent=true }},
+            {"]d", vim.diagnostic.goto_next, desc = "Go to next diagnostic", { noremap=true, silent=true }},
+            {"<leader>ca", vim.lsp.buf.code_action, desc = "Code actions", { noremap=true, silent=true }},
+        },
     },
     {
         "mfussenegger/nvim-lint",
@@ -162,24 +173,4 @@ return {
             require("neodev").setup()
         end
     },
-    {
-        "glepnir/lspsaga.nvim",
-        event = "BufRead",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons",
-        },
-        keys = {
-            {"K", "<cmd>Lspsaga hover_doc<CR>", desc = "Show doc tooltip", { noremap=true, silent=true }},
-            {"gd", "<cmd>Lspsaga goto_definition<CR>", desc = "Go to definition", { noremap=true, silent=true }},
-            {"gD", "<cmd>Lspsaga goto_type_definition<CR>", desc = "Go to type definition", { noremap=true, silent=true }},
-            {"gh", "<cmd>Lspsaga lsp_finder<CR>", desc = "Find all occurrences", { noremap=true, silent=true }},
-            {"gr", "<cmd>Lspsaga rename<CR>", desc = "Rename", { noremap=true, silent=true }},
-            {"[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "Go to prev diagnostic", { noremap=true, silent=true }},
-            {"]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Go to next diagnostic", { noremap=true, silent=true }},
-        },
-        config = function()
-            require("lspsaga").setup({})
-        end
-    }
 }
