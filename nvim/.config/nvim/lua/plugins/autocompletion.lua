@@ -1,4 +1,4 @@
-local language_servers = {"tsserver", "graphql", "lua_ls"}
+local language_servers = {"tsserver", "graphql", "lua_ls", "terraformls"}
 
 return {
     "hrsh7th/nvim-cmp",
