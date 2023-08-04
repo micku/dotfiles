@@ -8,16 +8,18 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         event = "BufRead",
+        config = function()
+            local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+            end
+        end,
         keys = {
-            {"K", vim.lsp.buf.hover, desc = "Show doc tooltip", { noremap=true, silent=true }},
             {"gd", vim.lsp.buf.definition, desc = "Go to definition", { noremap=true, silent=true }},
             {"gD", vim.lsp.buf.declaration, desc = "Go to type definition", { noremap=true, silent=true }},
             {"gi", vim.lsp.buf.implementation, desc = "Go to implementation", { noremap=true, silent=true }},
-            {"gh", vim.lsp.buf.references, desc = "Find all references", { noremap=true, silent=true }},
-            {"gr", vim.lsp.buf.rename, desc = "Rename", { noremap=true, silent=true }},
-            {"[d", vim.diagnostic.goto_prev, desc = "Go to prev diagnostic", { noremap=true, silent=true }},
-            {"]d", vim.diagnostic.goto_next, desc = "Go to next diagnostic", { noremap=true, silent=true }},
-            {"<leader>ca", vim.lsp.buf.code_action, desc = "Code actions", { noremap=true, silent=true }},
+            {"gh", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", desc = "Find all references", { noremap=true, silent=true }},
         },
     },
     {
@@ -172,5 +174,19 @@ return {
         config = function()
             require("neodev").setup()
         end
+    },
+    {
+        "jinzhongjia/LspUI.nvim",
+        event="VeryLazy",
+        config=function()
+            require("LspUI").setup()
+        end,
+        keys = {
+            {"K", "<cmd>lua require('LspUI').api.hover()<cr>", desc = "Show doc tooltip", { noremap=true, silent=true }},
+            {"[d", "<cmd>lua require('LspUI').api.diagnostic('prev')<cr>", desc = "Go to prev diagnostic", { noremap=true, silent=true }},
+            {"]d", "<cmd>lua require('LspUI').api.diagnostic('next')<cr>", desc = "Go to next diagnostic", { noremap=true, silent=true }},
+            {"gr", "<cmd>lua require('LspUI').api.rename()<cr>", desc = "Rename", { noremap=true, silent=true }},
+            {"<leader>ca", "<cmd>lua require('LspUI').api.code_action()<cr>", desc = "Code actions", { noremap=true, silent=true }},
+        },
     },
 }
