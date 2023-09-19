@@ -10,7 +10,6 @@ output eDP-1
 crtc 0
 mode 3840x2160
 pos 1090x2520
-primary
 rate 60.02
 x-prop-broadcast_rgb Automatic
 x-prop-colorspace Default
@@ -21,6 +20,7 @@ output DP-2
 crtc 1
 mode 3440x1440
 pos 0x0
+primary
 transform 1.750000,0.000000,0.000000,0.000000,1.750000,0.000000,0.000000,0.000000,1.000000
 rate 59.97
 pos 0x0
