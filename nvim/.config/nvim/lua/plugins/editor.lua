@@ -91,5 +91,8 @@ return {
         keys = {
             {"v", "<Plug>(expand_region_expand)", mode = "v", noremap = false},
         }
+    },
+    {
+        "whiteinge/diffconflicts",
     }
 }
