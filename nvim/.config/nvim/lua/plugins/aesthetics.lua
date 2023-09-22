@@ -50,9 +50,6 @@ return {
             vim.cmd "highlight Comment cterm=italic ctermfg=8"
             vim.cmd "highlight Todo ctermbg=8 ctermfg=6"
             vim.cmd "highlight Statement cterm=bold ctermfg=15"
-
-            vim.opt.winbar = '%=%m %f%='
-            vim.opt.laststatus = 3
         end,
     },
 }

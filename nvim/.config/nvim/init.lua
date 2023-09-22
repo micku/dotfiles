@@ -1,10 +1,8 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- Set global keymaps
+require('keymaps')
 
-vim.g.python_host_prog = "~/.pyenv/versions/neovim2/bin/python"
-vim.g.python3_host_prog = "~/.pyenv/versions/neovim3/bin/python"
+-- Set global options
+require('options')
 
+-- Setup plugins
 require('plugin')
-
--- Enable matchit plugin which ships with vim and greatly enhances "%"
-vim.cmd "runtime macros/matchit.vim"

@@ -3,50 +3,22 @@ return {
     keys = {
         {"<leader>ft", ":Format<CR>", desc = "Format the entire file"},
     },
-    config = function()
+    event = "BufWrite",
+    config = function(_, opts)
+        opts.filetype = opts.filetype or {}
+        opts.pattern = opts.pattern or {}
+
         require('formatter').setup({
             logging = true,
-            filetype = {
-                javascript = {
-                    -- prettier
-                    function()
-                        return {
-                            exe = "prettier",
-                            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
-                            stdin = true
-                        }
-                    end
-                },
-                typescript = {
-                    -- prettier
-                    function()
-                        return {
-                            exe = "prettier",
-                            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
-                            stdin = true
-                        }
-                    end
-                },
-                rust = {
-                    -- Rustfmt
-                    function()
-                        return {
-                            exe = "rustfmt",
-                            args = {"--emit=stdout"},
-                            stdin = true
-                        }
-                    end
-                }
-            }
+            filetype = opts.filetype
         })
 
         -- Format on save
-        vim.api.nvim_exec([[
-        augroup FormatAutogroup
-        autocmd!
-        autocmd BufWritePost *.ts,*.js,*.rs FormatWrite
-        augroup END
-        ]], true)
+        local group = vim.api.nvim_create_augroup("FormatAutogroup", {clear = true})
+        vim.api.nvim_create_autocmd("BufWritePost", {
+            pattern = opts.pattern,
+            group = group,
+            command = "FormatWrite",
+        })
     end
 }
-
