@@ -70,4 +70,21 @@ return {
             require("neodev").setup()
         end
     },
+    {
+        'stevearc/aerial.nvim',
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+        config = function()
+            require("aerial").setup({
+                close_automatic_events = {'unfocus', 'switch_buffer', 'unsupported'},
+                close_on_select = true,
+            })
+        end,
+        opts = {},
+        keys = {
+            {"gs", "<cmd>AerialToggle<CR>", desc = "Symbols tree", { noremap=true, silent=true }},
+        },
+    },
 }
