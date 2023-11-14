@@ -42,5 +42,12 @@ return {
     },
     {
         "whiteinge/diffconflicts",
+    },
+    {
+        "tpope/vim-unimpaired", -- :help unimpaired for bindings
+        dependencies = {
+            "tpope/vim-repeat"
+        },
+        lazy = false,
     }
 }
