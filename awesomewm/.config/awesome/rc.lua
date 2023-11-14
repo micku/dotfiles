@@ -230,7 +230,6 @@ local starting_tags = {
     { name = "", layout = awful.layout.suit.max,   screen = 3 },
     { name = "﫸", layout = awful.layout.suit.tile, screen = 2 },
     { name = "﫸", layout = awful.layout.suit.tile, screen = 1 },
-
 }
 local tags = sharedtags(starting_tags)
 
@@ -249,7 +248,7 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-	awful.button({ }, 1, function () mymainmenu:hide() end),
+    awful.button({ }, 1, function () mymainmenu:hide() end),
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
@@ -293,6 +292,10 @@ globalkeys = gears.table.join(
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey, "Control" }, "l", function () sharedtags.send_focused_tag_to_next_screen() end,
+              {description = "send focused tag to next screen", group = "screen"}),
+    awful.key({ modkey, "Control" }, "h", function () sharedtags.send_focused_tag_to_prev_screen() end,
+              {description = "send focused tag to previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
