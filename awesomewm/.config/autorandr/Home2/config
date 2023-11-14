@@ -1,11 +1,20 @@
-output eDP-1
-off
 output DP-1
 off
 output HDMI-2
 off
 output HDMI-3
 off
+output DP-2
+crtc 1
+mode 2560x1440
+pos 3840x0
+rate 60.00
+transform 1.500000,0.000000,0.000000,0.000000,1.500000,0.000000,0.000000,0.000000,1.000000
+x-prop-audio auto
+x-prop-broadcast_rgb Automatic
+x-prop-colorspace Default
+x-prop-max_bpc 12
+x-prop-non_desktop 0
 output HDMI-1
 crtc 0
 mode 3840x2160
@@ -18,14 +27,5 @@ x-prop-broadcast_rgb Automatic
 x-prop-colorspace Default
 x-prop-max_bpc 12
 x-prop-non_desktop 0
-output DP-2
-crtc 2
-mode 2560x1440
-pos 3840x0
-rate 75.00
-transform 1.500000,0.000000,0.000000,0.000000,1.500000,0.000000,0.000000,0.000000,1.000000
-x-prop-audio auto
-x-prop-broadcast_rgb Automatic
-x-prop-colorspace Default
-x-prop-max_bpc 12
-x-prop-non_desktop 0
+output eDP-1
+off
