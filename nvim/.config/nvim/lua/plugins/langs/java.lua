@@ -15,6 +15,7 @@ return {
         "mfussenegger/nvim-jdtls",
         dependencies = {
             "ahmedkhalf/project.nvim", -- Sets pwd/getcwd() to the project root
+            "mfussenegger/nvim-dap",
         },
         ft = "java",
         config = function()
