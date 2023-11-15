@@ -172,6 +172,10 @@ draw_bold_text_with_bright_colors: true
 
 # TokyoNight Alacritty Colors
 colors:
+  cursor:
+    text: '0x000000'
+    cursor: '0xe8eb34'
+
   name: TokyoNight Storm
   author: Folke
   # Default colors
