@@ -3,6 +3,9 @@ local language_servers = {"tsserver", "graphql", "lua_ls", "yamlls", "jsonls", "
 return {
     {
         "neovim/nvim-lspconfig",
+        dependencies = {
+            "folke/neodev.nvim", -- Neodev needs to be loaded before nvim-lspconfig: https://github.com/folke/neodev.nvim#-setup
+        },
         event = "BufRead",
         config = function()
             local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -67,11 +70,18 @@ return {
     {
         "folke/neodev.nvim", -- Utils for Neovim config editing/development
         config = function()
-            require("neodev").setup()
+            require("neodev").setup({
+                library = {
+                    plugins = {
+                        "neotest",
+                    },
+                    types = true,
+                }
+            })
         end
     },
     {
-        'stevearc/aerial.nvim',
+        "stevearc/aerial.nvim",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons"
@@ -85,6 +95,15 @@ return {
         opts = {},
         keys = {
             {"gs", "<cmd>AerialToggle<CR>", desc = "Symbols tree", { noremap=true, silent=true }},
+        },
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
         },
     },
 }
