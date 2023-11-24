@@ -23,6 +23,11 @@ return {
         "folke/zen-mode.nvim",
         keys = {
             {"<leader>z", ":ZenMode<CR>", desc = "Toggles zen mode", silent = true}
+        },
+        opts = {
+            window = {
+                width = 180,
+            },
         }
     },
     {
@@ -47,5 +52,21 @@ return {
             "tpope/vim-repeat"
         },
         lazy = false,
-    }
+    },
+    {
+        "chrisgrieser/nvim-spider",
+        keys = {
+            { "b", "<cmd>lua require('spider').motion('b')<CR>", desc = "Cursor N words backward", mode = { "n", "o", "x" }},
+            { "w", "<cmd>lua require('spider').motion('w')<CR>", desc = "Cursor N words forward", mode = { "n", "o", "x" }},
+            { "e", "<cmd>lua require('spider').motion('e')<CR>", desc = "Cursor forward to the end of word N", mode = { "n", "o", "x" }},
+            { "ge", "<cmd>lua require('spider').motion('ge')<CR>", desc = "Go backwards to the end of the previous WORD", mode = { "n", "o", "x" }},
+        },
+        lazy = true,
+    },
+    {
+        "Aasim-A/scrollEOF.nvim", -- Applies the `scrollof` value also to the end of file
+        config = function ()
+            require('scrollEOF').setup()
+        end
+    },
 }
