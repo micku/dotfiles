@@ -1,19 +1,17 @@
 return {
     "tpope/vim-sleuth",
     {
-	"lukas-reineke/indent-blankline.nvim",
-	config = function ()
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        config = function ()
             vim.opt.list = true
             vim.opt.listchars:append "eol:↴"
 
-            require("indent_blankline").setup {
-                char = "┊",
-                show_end_of_line = true,
-                space_char_blankline = " ",
-		show_current_context = true,
-                show_trailing_blankline_indent = false,
+            require("ibl").setup {
+                indent = { char = "┊" },
+                scope = { show_start = false, show_end = false },
             }
-	end
+        end
     },
     {
         "numToStr/Comment.nvim",
