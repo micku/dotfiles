@@ -275,7 +275,10 @@ cursor:
   #   - ▇ Block
   #   - _ Underline
   #   - | Beam
-  style: Block
+  style:
+    shape: Block
+    blinking: Always
+  blink_interval: 400
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
