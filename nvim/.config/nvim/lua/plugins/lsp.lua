@@ -66,7 +66,12 @@ return {
             })
         end,
     },
-    { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+    {
+        -- Shows notifications and LSP progress in the bottom right of the editor.
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+        opts = {}
+    },
     {
         "folke/neodev.nvim", -- Utils for Neovim config editing/development
         config = function()
