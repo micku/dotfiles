@@ -12,6 +12,9 @@
   # available, otherwise `xterm-256color` is used.
   #TERM: xterm-256color
 
+import:
+  - ~/.config/alacritty/colors/rose-pine.yaml
+
 window:
   # Window dimensions (changes require restart)
   #
@@ -34,8 +37,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 7
-    y: 7
+    x: 0
+    y: 0
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
@@ -102,7 +105,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: InputMono Nerd Font Mono # InputMono Nerd Font
+    family: JetBrainsMono Nerd Font Mono # InputMono Nerd Font Mono # InputMono Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Light
@@ -130,7 +133,7 @@ font:
     #style: Italic
 
   # Point size
-  size: 8.0
+  size: 8
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -170,44 +173,10 @@ debug.persistent_logging: false
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# TokyoNight Alacritty Colors
 colors:
   cursor:
-    text: '0x000000'
-    cursor: '0xe8eb34'
-
-  name: TokyoNight Storm
-  author: Folke
-  # Default colors
-  primary:
-    background: '0x222436'
-    foreground: '0xc8d3f5'
-
-  # Normal colors
-  normal:
-    black:   '0x1b1d2b'
-    red:     '0xff757f'
-    green:   '0xc3e88d'
-    yellow:  '0xffc777'
-    blue:    '0x82aaff'
-    magenta: '0xc099ff'
-    cyan:    '0x86e1fc'
-    white:   '0x828bb8'
-
-  # Bright colors
-  bright:
-    black:   '0x444a73'
-    red:     '0xff757f'
-    green:   '0xc3e88d'
-    yellow:  '0xffc777'
-    blue:    '0x82aaff'
-    magenta: '0xc099ff'
-    cyan:    '0x86e1fc'
-    white:   '0xc8d3f5'
-
-  indexed_colors:
-    - { index: 16, color: '0xff966c' }
-    - { index: 17, color: '0xc53b53' }
+    text: '0x191724'
+    cursor: '0xeb6f92'
 
 # Visual Bell
 #
