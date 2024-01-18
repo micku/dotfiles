@@ -37,4 +37,36 @@ return {
             {"gK", "<cmd>lua require('hover').hover_select()<cr>", desc = "Show doc tooltip (select)", { noremap=true, silent=true }},
         },
     },
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function ()
+            require("nvim-tree").setup({
+                view = {
+                    float = {
+                        enable = true,
+                        quit_on_focus_loss = true,
+                        open_win_config = {
+                            border = "solid",
+                        }
+                    }
+                },
+                on_attach = function (bufnr)
+                    local api = require('nvim-tree.api')
+
+                    local function opts(desc)
+                        return { desc = desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+                    end
+
+                    vim.keymap.set('n', '<CR>', api.node.open.no_window_picker, opts('Open'))
+                    vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
+                end
+            })
+        end,
+        keys = {
+            {"<Leader>tr", "<cmd>lua require('nvim-tree.api').tree.toggle({find_file = true})<cr>", desc = "Show doc tooltip", { noremap=true, silent=true }},
+        }
+    },
 }
