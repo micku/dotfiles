@@ -50,8 +50,12 @@ return {
                         quit_on_focus_loss = true,
                         open_win_config = {
                             border = "solid",
+                            width = 80,
                         }
                     }
+                },
+                renderer = {
+                    group_empty = true,
                 },
                 on_attach = function (bufnr)
                     local api = require('nvim-tree.api')
@@ -66,7 +70,7 @@ return {
             })
         end,
         keys = {
-            {"<Leader>tr", "<cmd>lua require('nvim-tree.api').tree.toggle({find_file = true})<cr>", desc = "Show doc tooltip", { noremap=true, silent=true }},
+            {"<Leader>tr", "<cmd>lua require('nvim-tree.api').tree.toggle({find_file = true})<cr>", desc = "Show file tree", { noremap=true, silent=true }},
         }
     },
 }
