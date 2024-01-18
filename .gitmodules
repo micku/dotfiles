@@ -10,3 +10,6 @@
 [submodule "awesomewm/.config/awesome/lain"]
 	path = awesomewm/.config/awesome/lain
 	url = https://github.com/lcpz/lain.git
+[submodule "tmux/.config/tmux/plugins/tpm"]
+	path = tmux/.config/tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm.git
