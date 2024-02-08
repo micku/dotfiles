@@ -79,6 +79,11 @@ return {
         dependencies = {
             "zbirenbaum/copilot.lua",
             "hrsh7th/nvim-cmp",
+        "CopilotC-Nvim/CopilotChat.nvim",
+        opts = {
+            show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
+            debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
+            disable_extra_info = 'no', -- Disable extra information (e.g: system prompt) in the response.
         },
         config = function()
             require("copilot_cmp").setup({})
@@ -92,6 +97,25 @@ return {
             cmp.event:on("menu_closed", function()
                 vim.b.copilot_suggestion_hidden = false
             end)
+        build = function()
+            vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
         end,
+        event = "VeryLazy",
+        keys = {
+            { "<leader>cce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+            { "<leader>cct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+            {
+                "<leader>ccv",
+                ":CopilotChatVisual",
+                mode = "x",
+                desc = "CopilotChat - Open in vertical split",
+            },
+            {
+                "<leader>ccx",
+                ":CopilotChatInPlace<cr>",
+                mode = "x",
+                desc = "CopilotChat - Run in-place code",
+            },
+        },
     },
 }

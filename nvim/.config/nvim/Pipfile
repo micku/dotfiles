@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 requests = "*"
+python-dotenv = "*"
+requests = "*"
+pynvim = "0.5.0"
+prompt-toolkit = "*"
 
 [dev-packages]
 
