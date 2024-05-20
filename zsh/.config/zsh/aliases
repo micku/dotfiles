@@ -6,7 +6,7 @@ alias g='git'
 alias la='ls -al'
 alias v='nvim'
 
-alias dot='tmux_split "dotfiles" 90 ~/dotfiles'
+alias dot='tmux_new_session "dotfiles" ~/dotfiles'
 
 if [ -f ~/.config/zsh-work/aliases ]; then
     source ~/.config/zsh-work/aliases
@@ -28,4 +28,13 @@ function tmux_split () {
         tmux split-window -h -p 30
         tmux send-keys "cd $3" Enter
     fi
+}
+
+function tmux_new_session() {
+    tmux has-session -t $1  > /dev/null 2>&1
+    if [ $? != 0 ]
+    then
+       tmux new-session -s $1 -c $2 -d
+    fi
+    tmux switch-client -t $1
 }
