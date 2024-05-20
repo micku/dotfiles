@@ -14,12 +14,6 @@ return {
         end
     },
     {
-        "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup()
-        end
-    },
-    {
         "folke/zen-mode.nvim",
         keys = {
             {"<leader>z", ":ZenMode<CR>", desc = "Toggles zen mode", silent = true}
