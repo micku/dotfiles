@@ -19,6 +19,7 @@ require("lazy").setup({
     spec = {
         {import = "plugins"},
         {import = "plugins.langs.bash"},
+        {import = "plugins.langs.go"},
         {import = "plugins.langs.graphql"},
         {import = "plugins.langs.java"},
         {import = "plugins.langs.javascript"},
