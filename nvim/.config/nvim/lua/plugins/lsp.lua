@@ -14,12 +14,6 @@ return {
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
         end,
-        keys = {
-            {"gd", vim.lsp.buf.definition, desc = "Go to definition", { noremap=true, silent=true }},
-            {"gD", vim.lsp.buf.declaration, desc = "Go to type definition", { noremap=true, silent=true }},
-            {"gi", vim.lsp.buf.implementation, desc = "Go to implementation", { noremap=true, silent=true }},
-            {"gh", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", desc = "Find all references", { noremap=true, silent=true }},
-        },
     },
     {
         "mfussenegger/nvim-lint",

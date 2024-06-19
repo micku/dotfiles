@@ -16,6 +16,7 @@ return {
                     hijack_netrw = true,
                     hidden = true,
                     respect_gitignore = true,
+                    collapse_dirs = true,
                 },
             },
         }
