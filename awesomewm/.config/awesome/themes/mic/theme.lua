@@ -42,7 +42,7 @@ theme.notification_fg = "#E5E9F0"
 theme.notification_border_color = "#D8DEE9"
         
 -- Borders
-theme.border_width  = dpi(3)
+theme.border_width  = dpi(1)
 theme.border_normal = "#4C566A"
 theme.border_focus  = "#8FBCBB"
 theme.border_marked = "#BF616A"

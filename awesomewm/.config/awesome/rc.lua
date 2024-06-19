@@ -56,7 +56,7 @@ beautiful.icon_theme        = "Papirus-Dark"
 beautiful.bg_normal         = "#141A1B"
 beautiful.bg_focus          = "#222B2E"
 beautiful.font              = "NotoSans Nerd Font 10"
-beautiful.useless_gap       = dpi(3)
+beautiful.useless_gap       = dpi(0)
 
 -- This is used later as the default terminal and editor to run.
 browser = "exo-open --launch WebBrowser" or "firefox"
