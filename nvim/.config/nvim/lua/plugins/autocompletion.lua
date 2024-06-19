@@ -29,8 +29,15 @@ return {
                 end,
             },
             window = {
-                -- completion = cmp.config.window.bordered(),
+                completion = {
+                    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                    col_offset = -3,
+                    side_padding = 0,
+                },
                 -- documentation = cmp.config.window.bordered(),
+            },
+            view = {
+                entries = {name = 'custom', selection_order = 'near_cursor' },
             },
             mapping = cmp.mapping.preset.insert({
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -60,42 +67,17 @@ return {
                 end, {"i", "s"}),
             }),
             formatting = {
-                format = lspkind.cmp_format({
-                    mode = "symbol_text",
-                    maxwidth = 50,
-                    ellipsis_char = "…",
-                    symbol_map = {
-                        Text = "",
-                        Method = "m",
-                        Function = "",
-                        Constructor = "",
-                        Field = "",
-                        Variable = "",
-                        Class = "",
-                        Interface = "",
-                        Module = "",
-                        Property = "",
-                        Unit = "",
-                        Value = "",
-                        Enum = "",
-                        Keyword = "",
-                        Snippet = "",
-                        Color = "",
-                        File = "",
-                        Reference = "",
-                        Folder = "",
-                        EnumMember = "",
-                        Constant = "",
-                        Struct = "",
-                        Event = "",
-                        Operator = "",
-                        TypeParameter = "",
-                        Copilot = "",
-                    },
-                })
+                fields = { "kind", "abbr", "menu" },
+                format = function(entry, vim_item)
+                    local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                    kind.kind = " " .. (strings[1] or "") .. " "
+                    kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+                    return kind
+                end,
             },
             sources = {
-                {name = "copilot"},
                 {name = "nvim_lsp"},
                 -- {name = "luasnip"},
                 {name = "buffer"},

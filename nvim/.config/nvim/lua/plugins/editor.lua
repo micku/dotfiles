@@ -63,34 +63,23 @@ return {
                     enabled = false,
                 },
                 suggestion = {
-                    enabled = false,
+                    enabled = true,
+                    auto_trigger = true,
+                    keymap = {
+                        accept = "<C-j>",
+                    },
                 },
             })
         end,
     },
     {
-        "zbirenbaum/copilot-cmp",
-        dependencies = {
-            "zbirenbaum/copilot.lua",
-            "hrsh7th/nvim-cmp",
         "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "canary",
         opts = {
             show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
             debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
             disable_extra_info = 'no', -- Disable extra information (e.g: system prompt) in the response.
         },
-        config = function()
-            require("copilot_cmp").setup({})
-
-            local cmp = require("cmp")
-
-            cmp.event:on("menu_opened", function()
-                vim.b.copilot_suggestion_hidden = true
-            end)
-
-            cmp.event:on("menu_closed", function()
-                vim.b.copilot_suggestion_hidden = false
-            end)
         build = function()
             vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
         end,
