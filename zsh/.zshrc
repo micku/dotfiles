@@ -26,6 +26,12 @@ export EDITOR=nvim
 #export VISUAL=/usr/bin/nano
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
+## Functions
+if [ -f ~/.config/zsh/functions ]; then
+    source ~/.config/zsh/functions
+else
+    print "404: ~/.config/zsh/functions not found."
+fi
 
 ## Keybindings section
 if [ -f ~/.config/zsh/bindings ]; then
