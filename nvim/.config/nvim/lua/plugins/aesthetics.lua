@@ -7,6 +7,13 @@ return {
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             require("rose-pine").setup({
+                dim_inactive_windows = true,
+
+                styles = {
+                    italic = false,
+                    bold = false,
+                },
+
                 highlight_groups = {
                     -- Remove virtual text background
                     DiagnosticVirtualTextError = { bg = "none" },
