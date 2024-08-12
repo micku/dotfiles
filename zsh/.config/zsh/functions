@@ -1,7 +1,3 @@
-function go_to_work() {
-    go_to_project ~/dev/work/*/**
-}
-
 function go_to_project() {
     projects_list=("$@")
 

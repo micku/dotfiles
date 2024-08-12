@@ -7,7 +7,7 @@ alias la='ls -al'
 alias v='nvim'
 
 alias dot='tmux_go_to_session ~/dotfiles'
-alias work='go_to_work'
+alias work='go_to_project ~/dev/work/*/**'
 alias pers='go_to_project ~/dev/personal/**'
 alias soft='go_to_project ~/dev/software/**'
 
