@@ -26,6 +26,12 @@ export EDITOR=nvim
 #export VISUAL=/usr/bin/nano
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
+## Functions
+if [ -f ~/.config/zsh/functions ]; then
+    source ~/.config/zsh/functions
+else
+    print "404: ~/.config/zsh/functions not found."
+fi
 
 ## Keybindings section
 if [ -f ~/.config/zsh/bindings ]; then
@@ -76,11 +82,6 @@ eval "$(pyenv init -)"
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh
-
-# Node Version Manager
-export PATH=~/.nvm/versions/node/v12.18.4/bin:$PATH
-export NVM_DIR="$HOME/.config/nvm"
-source "$NVM_DIR/nvm.sh" --no-use  # --no-use increases startup time, must explicitely call `nvm use`
 
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
@@ -156,3 +157,11 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Add Flow virtual environment to PATH
 export PATH="/home/michele.gargiulo/.flow/venv/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ "$TMUX" = "" ]; then tmux; fi
+
+if [[ $(uname) == "Darwin" ]]; then
+    source ~/.zshrc.macos
+fi

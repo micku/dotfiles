@@ -6,35 +6,11 @@ alias g='git'
 alias la='ls -al'
 alias v='nvim'
 
-alias dot='tmux_new_session "dotfiles" ~/dotfiles'
+alias dot='tmux_go_to_session ~/dotfiles'
+alias work='go_to_work'
+alias pers='go_to_project ~/dev/personal/**'
+alias soft='go_to_project ~/dev/software/**'
 
 if [ -f ~/.config/zsh-work/aliases ]; then
     source ~/.config/zsh-work/aliases
 fi
-
-function tmux_split () {
-    EXISTING_WINDOW=$(tmux list-windows -a | sed -n "s/^\([0-9]\{1,\}:[0-9]\{1,\}\):.* $1[-*#!~MZ]\? .*/\1/p")
-
-    if [ ! -z "$EXISTING_WINDOW" ]
-    then
-        tmux select-window -t $EXISTING_WINDOW
-    else
-        tmux new-window
-        tmux rename-window "$1"
-        tmux move-window -t "$2"
-        tmux select-window -t :$2
-        tmux send-keys "cd $3" Enter
-        tmux send-keys 'v' Enter
-        tmux split-window -h -p 30
-        tmux send-keys "cd $3" Enter
-    fi
-}
-
-function tmux_new_session() {
-    tmux has-session -t $1  > /dev/null 2>&1
-    if [ $? != 0 ]
-    then
-       tmux new-session -s $1 -c $2 -d
-    fi
-    tmux switch-client -t $1
-}

@@ -45,3 +45,25 @@ This is the software needed to make the config usable.
 
 - [playerctl](https://github.com/acrisci/playerctl) - [Manjaro package](https://www.archlinux.org/packages/community/x86_64/playerctl/)
 - [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) - [Manjaro package](https://www.archlinux.org/packages/community/x86_64/rxvt-unicode/)
+
+### Neovim
+
+
+### Tmux
+
+```
+# For Mac
+brew install automake autoconf ncurses libevent pkg-config utf8proc
+
+git clone https://github.com/tmux/tmux.git
+cd tmux
+sh autogen.sh
+./configure --enable-utf8proc # Flag required only on Mac
+make && sudo make install
+```
+
+Source: https://github.com/tmux/tmux/wiki/Installing#from-version-control
+
+### Font
+
+JetBrains Mono from https://www.nerdfonts.com/font-downloads
