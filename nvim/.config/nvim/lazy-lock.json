@@ -12,6 +12,7 @@
   "formatter.nvim": { "branch": "master", "commit": "ad246d34ce7a32f752071ed81b09b94e6b127fad" },
   "fugitive-stash.vim": { "branch": "master", "commit": "8fdcc93f5d2c925aa1bda8ef6a4977b45182e577" },
   "gitsigns.nvim": { "branch": "main", "commit": "1a50b94066def8591d5f65bd60a4233902e9def4" },
+  "harpoon": { "branch": "harpoon2", "commit": "0378a6c428a0bed6a2781d459d7943843f374bce" },
   "hover.nvim": { "branch": "main", "commit": "1084aa544477cf878d466cacaec0d8d4692c7360" },
   "indent-blankline.nvim": { "branch": "master", "commit": "3d08501caef2329aba5121b753e903904088f7e6" },
   "lazy.nvim": { "branch": "main", "commit": "31ddbea7c10b6920c9077b66c97951ca8682d5c8" },
