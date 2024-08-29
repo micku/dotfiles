@@ -35,6 +35,11 @@ return {
 
                     local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
+                    local bundles = {
+                        vim.fn.glob(java_debug_path .. "extension/server/com.microsoft.java.debug.plugin-*.jar", 1),
+                    };
+                    vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "extension/server/*.jar", 1), "\n"))
+
                     local config = {
                         flags = {
                             debounce_text_changes = 80,
@@ -67,10 +72,7 @@ return {
 
                         -- TODO: These are debugging configurations, those should stay in debugger.lua
                         init_options = {
-                            bundles = {
-                                vim.fn.glob(java_debug_path .. "extension/server/com.microsoft.java.debug.plugin-*.jar", true),
-                                vim.fn.glob(java_test_path .. "extension/server/*.jar", true),
-                            }
+                            bundles = bundles,
                         },
                     }
                     jdtls.start_or_attach(config)

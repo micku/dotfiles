@@ -18,10 +18,10 @@ return {
         end,
         keys = {
             {"<Leader>tn", "<cmd>lua require('neotest').run.run()<cr>", desc = "Test nearest", { noremap=true, silent=true }},
+            {"<Leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Run nearest test with debugger", { noremap=true, silent=true }},
             {"<Leader>tf", "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", desc = "Run tests in file", { noremap=true, silent=true }},
             {"<Leader>tt", "<cmd>lua require('neotest').output_panel.toggle()<cr>", desc = "Toggle the test panel", { noremap=true, silent=true }},
-            {"<Leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Run nearest test with debugger", { noremap=true, silent=true }},
-            {"<Leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "Run nearest test with debugger", { noremap=true, silent=true }},
+            {"<Leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "Toggle test summary panel", { noremap=true, silent=true }},
         },
     },
     {
