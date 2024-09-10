@@ -33,7 +33,12 @@ return {
 
                     local root_dir = vim.fn.getcwd()
 
-                    local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+                    -- Getting the last 2 folders to handle the master/main branch when organizing projects
+                    --  in the <project>/<branch> format.
+                    --  For example `~/projects/my_project/main` and `~/projects/my_2_project/main` would
+                    --  have the same workspace folder `main` if we only get the last folder.
+                    local _, _, project_folder = string.find(vim.fn.fnamemodify(root_dir, ":p:h"), "(/[^/]*/[^/]*)$")
+                    local workspace_folder = home .. "/.local/share/eclipse/" .. project_folder
 
                     local bundles = {
                         vim.fn.glob(java_debug_path .. "extension/server/com.microsoft.java.debug.plugin-*.jar", 1),
