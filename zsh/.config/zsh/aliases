@@ -3,6 +3,7 @@ alias df='df -h'                                                # Human-readable
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
 alias g='git'
+alias gwa='git_worktree_add'
 alias la='ls -al'
 alias v='nvim'
 
