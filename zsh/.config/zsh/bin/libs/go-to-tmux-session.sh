@@ -12,6 +12,7 @@ then
     fi
     tmux new-session -s $session_name -c $project_path -d
     tmux rename-window -t "$session_name:1" shell
-    tmux new-window -a -t "$session_name:1" -c $project_path -n master nvim
+    tmux new-window -a -t "$session_name:1" -c $project_path -n master
+    tmux send-keys -t "$session_name:2" C-z 'nvim' Enter
 fi
 tmux switch-client -t $session_name
