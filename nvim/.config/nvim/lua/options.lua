@@ -16,7 +16,6 @@ vim.opt.mouse = "a"
 
 -- Show line numbers relative to cursor
 vim.wo.number = true
-vim.wo.relativenumber = true
 
 -- Hide '-- INSERT --' since it is already shown in lightline
 vim.o.showmode = false
