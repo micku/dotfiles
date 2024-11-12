@@ -1,4 +1,4 @@
-local language_servers = {"tsserver", "graphql", "lua_ls", "yamlls", "jsonls", "terraformls", "marksman", "gopls"}
+local language_servers = {"ts_ls", "graphql", "lua_ls", "yamlls", "jsonls", "terraformls", "marksman", "gopls"}
 
 return {
     {
