@@ -8,7 +8,7 @@ return {
             "nvim-tree/nvim-web-devicons"
         },
         keys = {
-            {"-", ":Telescope file_browser path=%:p:h<cr>", desc = "File browser"},
+            -- {"-", ":Telescope file_browser path=%:p:h<cr>", desc = "File browser"},
         },
         config = function()
             require("telescope").setup {
@@ -25,38 +25,23 @@ return {
         end
     },
     {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        lazy = true,
         dependencies = {
-            "nvim-telescope/telescope.nvim",
-            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons"
         },
-        config = function ()
-            local harpoon = require('harpoon')
-            harpoon:setup({})
-
-            -- basic telescope configuration
-            local conf = require("telescope.config").values
-            function Toggle_telescope_harpoon(harpoon_files)
-                local file_paths = {}
-                for _, item in ipairs(harpoon_files.items) do
-                    table.insert(file_paths, item.value)
-                end
-
-                require("telescope.pickers").new({}, {
-                    prompt_title = "Harpoon",
-                    finder = require("telescope.finders").new_table({
-                        results = file_paths,
-                    }),
-                    previewer = conf.file_previewer({}),
-                    sorter = conf.generic_sorter({}),
-                }):find()
-            end
-
-        end,
         keys = {
-            {"<A-a>", "<cmd>lua require'harpoon':list():add()<cr>", desc = "Debug JUnit nearest method"},
-            {"<A-h>", "<cmd>lua Toggle_telescope_harpoon(require'harpoon':list())<cr>", desc = "Open harpoon window"},
+            {"-", ":Oil<cr>", desc = "File browser"},
         },
+        config = function()
+            require("oil").setup {
+                view_options = {
+                    show_hidden = true,
+                },
+            }
+        end
     }
 }
