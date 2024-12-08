@@ -60,6 +60,20 @@ cd tmux
 sh autogen.sh
 ./configure --enable-utf8proc # Flag required only on Mac
 make && sudo make install
+
+# Fow Windows WSL
+apt install libevent-dev ncurses-dev build-essential bison pkg-config autotools-dev automake
+
+git clone https://github.com/tmux/tmux.git
+cd tmux
+sh autogen.sh
+./configure
+make && make install
+
+# Then install TPM
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux source ~/.tmux.conf # Reload the config
+# Then `prefix I` to install the plugins followed by a restart.
 ```
 
 Source: https://github.com/tmux/tmux/wiki/Installing#from-version-control
@@ -67,3 +81,10 @@ Source: https://github.com/tmux/tmux/wiki/Installing#from-version-control
 ### Font
 
 JetBrains Mono from https://www.nerdfonts.com/font-downloads
+
+### SSH
+
+On Windows WSL, the [`keychain` utility](https://www.funtoo.org/Funtoo:Keychain) takes care of starting the correct SSH agent at startup, asking for the SSH key passphrase only at boot:
+```
+sudo apt install keychain
+```
