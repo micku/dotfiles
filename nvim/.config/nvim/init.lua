@@ -6,3 +6,6 @@ require('options')
 
 -- Setup plugins
 require('plugin')
+
+-- Register autocommands
+require('autocommands')
