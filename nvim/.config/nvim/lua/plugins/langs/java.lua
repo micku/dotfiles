@@ -5,7 +5,6 @@ return {
             "williamboman/mason.nvim",
             "neovim/nvim-lspconfig",
         },
-        ft = {"java"},
         opts = function(_, opts)
             opts.ensure_installed = opts.ensure_installed or {}
             vim.list_extend(opts.ensure_installed, { "jdtls" })

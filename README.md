@@ -61,7 +61,7 @@ sh autogen.sh
 ./configure --enable-utf8proc # Flag required only on Mac
 make && sudo make install
 
-# Fow Windows WSL
+# For Windows WSL
 apt install libevent-dev ncurses-dev build-essential bison pkg-config autotools-dev automake
 
 git clone https://github.com/tmux/tmux.git
