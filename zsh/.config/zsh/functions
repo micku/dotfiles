@@ -34,19 +34,34 @@ function tmux_go_to_session() {
 
 # Git
 function git_worktree_add() {
+    RED='\033[0;31m'
+    NC='\033[0m' # No Color
+
     branch_name=$1
     if [ $# -eq 0 ]; then
-        echo "Provide a branch name"
+        echo "${RED}Provide a branch name${NC}"
         return
     fi
 
     if [ "${PWD##*/}" != "master" ]; then
-        echo "You need to be in the master folder to use this command"
+        echo "${RED}You need to be in the master folder to use this command${NC}"
         return
     fi
 
-    git pull
-    git worktree add -b $branch_name ../$branch_name
+    # Pull latest changes and check for errors
+    echo "Pulling latest changes from remote..."
+    if ! git pull; then
+        echo "${RED}Error: Git pull failed. Aborting worktree creation.${NC}"
+        return 1
+    fi
+
+    # Create new worktree with branch
+    echo "Creating new worktree for branch '$branch_name'..."
+    if ! git worktree add -b "$branch_name" "../$branch_name"; then
+        echo "${RED}Error: Failed to create worktree${NC}"
+        return 1
+    fi
+
     tmux new window ../$1
     window_id=$(tmux new-window -c ../$branch_name -n $branch_name -P)
     tmux send-keys -t $window_id C-z 'nvim' Enter
