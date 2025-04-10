@@ -20,6 +20,9 @@ vim.wo.number = true
 -- Hide '-- INSERT --' since it is already shown in lightline
 vim.o.showmode = false
 
+-- Sets the border of all floating windows
+vim.o.winborder = "rounded"
+
 -- Set unix line endings
 vim.bo.fileformat = "unix"
 

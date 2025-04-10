@@ -51,6 +51,7 @@ return {
                     },
                     dynamic_preview_title = true,
                     vimgrep_arguments = vimgrep_arguments,
+                    border = false, -- Waiting for the plenary fix: https://github.com/nvim-lua/plenary.nvim/pull/649
                 },
                 extensions = {
                     fzf = {
