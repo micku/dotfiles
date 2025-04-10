@@ -56,6 +56,9 @@ return {
                 renderer = {
                     group_empty = true,
                 },
+                filters = {
+                    git_ignored = false,
+                },
                 on_attach = function (bufnr)
                     local api = require('nvim-tree.api')
 
