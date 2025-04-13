@@ -28,5 +28,8 @@ require("lazy").setup({
         {import = "plugins.langs.python"},
         {import = "plugins.langs.rust"},
         {import = "plugins.langs.terraform"},
-    }
+    },
+    change_detection = {
+        enabled = false,
+    },
 })
