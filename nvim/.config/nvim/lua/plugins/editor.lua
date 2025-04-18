@@ -130,4 +130,18 @@ return {
             {"<", function() require("quicker").collapse() end, desc = "Collapse quickfix context"},
         },
     },
+    { -- Additional text edit operators
+        "echasnovski/mini.operators",
+        version = false,
+        lazy = false,
+        config = function ()
+            require('mini.operators').setup()
+        end,
+        -- Keys:
+        -- g= Evaluate
+        -- gx Exchange
+        -- gm Multiply
+        -- gr Replace
+        -- gs Sort
+    }
 }
