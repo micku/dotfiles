@@ -58,9 +58,11 @@ return {
         version = false, -- Never set this value to "*"! Never!
         opts = {
             provider = "copilot",
-            copilot = {
-                -- model = 'claude-3.5-sonnet',
-                model = 'claude-sonnet-4',
+            providers = {
+                copilot = {
+                    -- model = 'claude-3.5-sonnet',
+                    model = 'claude-sonnet-4',
+                },
             },
             windows = {
                 input = {
