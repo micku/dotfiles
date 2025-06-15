@@ -16,4 +16,7 @@ return {
             require('gitsigns').setup()
 	end
     },
+    {
+        "whiteinge/diffconflicts",
+    },
 }

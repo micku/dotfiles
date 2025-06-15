@@ -29,7 +29,7 @@ return {
             show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
             debug = false, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
             disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
-            model = "claude-3.5-sonnet",
+            model = "claude-sonnet-4",
         },
         build = function()
             vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
@@ -60,7 +60,7 @@ return {
             provider = "copilot",
             copilot = {
                 -- model = 'claude-3.5-sonnet',
-                model = 'claude-3.7-sonnet',
+                model = 'claude-sonnet-4',
             },
             windows = {
                 input = {
