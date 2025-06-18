@@ -99,7 +99,7 @@ return {
         end,
         opts = {},
         keys = {
-            {"gs", "<cmd>AerialToggle<CR>", desc = "Symbols tree", { noremap=true, silent=true }},
+            {"<leader>gs", "<cmd>AerialToggle<CR>", desc = "Symbols tree", { noremap=true, silent=true }},
         },
     },
     {

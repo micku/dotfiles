@@ -21,3 +21,7 @@ map("n", "k", "gk", {silent = true, desc = "Move up by displayed lines"})
 map("n", "j", "gj", {silent = true, desc = "Move down by displayed lines"})
 map("n", "0", "g0", {silent = true, desc = "Move to the beginning of the displayed line"})
 map("n", "$", "g$", {silent = true, desc = "Move to the end of the displayed line"})
+
+-- LSP
+map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {desc = "Rename symbol under cursor", silent = true})
+map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {desc = "Code action", silent = true})
