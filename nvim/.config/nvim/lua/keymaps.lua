@@ -25,3 +25,5 @@ map("n", "$", "g$", {silent = true, desc = "Move to the end of the displayed lin
 -- LSP
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {desc = "Rename symbol under cursor", silent = true})
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {desc = "Code action", silent = true})
+map("n", "<leader>df", "<cmd>lua require'jdtls'.test_class()<cr>", {desc = "Debug JUnit test class", silent = true})
+map("n", "<leader>dn", "<cmd>lua require'jdtls'.test_nearest_method()<cr>", {desc = "Debug JUnit nearest method", silent = true})
