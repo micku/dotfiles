@@ -29,6 +29,7 @@
   "mini.operators": { "branch": "main", "commit": "87753a6748ac8871f7b81aa9473df76adb83a037" },
   "neotest": { "branch": "master", "commit": "ef492755730e59e1d8122c461abbd086bee4c76b" },
   "neotest-java": { "branch": "main", "commit": "3cc0bceb0b0957e918939ba95434197e6b3775e7" },
+  "no-neck-pain.nvim": { "branch": "main", "commit": "0b6e82a6f1db9ff0b694df2a8e3bd3f7828a3958" },
   "nord.nvim": { "branch": "main", "commit": "57fb474a1d628bdf9d1e7964719464ed5675d7c7" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "null-ls.nvim": { "branch": "main", "commit": "0010ea927ab7c09ef0ce9bf28c2b573fc302f5a7" },
