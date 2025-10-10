@@ -38,9 +38,11 @@ return {
             "williamboman/mason.nvim",
             "neovim/nvim-lspconfig",
         },
-        opts = function(_, opts)
+        config = function(_, opts)
             opts.ensure_installed = opts.ensure_installed or {}
             vim.list_extend(opts.ensure_installed, language_servers)
+
+            require("mason-lspconfig").setup(opts)
         end,
     },
     {

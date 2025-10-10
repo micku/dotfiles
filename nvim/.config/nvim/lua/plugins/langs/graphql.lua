@@ -7,7 +7,7 @@ return {
         },
         opts = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-            require("lspconfig")["graphql"].setup {capabilities = capabilities}
+            vim.lsp.config("graphql", {capabilities = capabilities})
         end,
     },
     {
