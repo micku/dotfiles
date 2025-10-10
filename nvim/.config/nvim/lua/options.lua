@@ -21,7 +21,7 @@ vim.wo.number = true
 vim.o.showmode = false
 
 -- Sets the border of all floating windows
-vim.o.winborder = "rounded"
+vim.o.winborder = "single"
 
 -- Set unix line endings
 vim.bo.fileformat = "unix"
