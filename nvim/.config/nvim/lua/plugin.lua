@@ -29,7 +29,13 @@ require("lazy").setup({
         {import = "plugins.langs.rust"},
         {import = "plugins.langs.terraform"},
     },
+    dev = {
+        path = "~/dev/personal/micku/vim-plugins/",
+    },
     change_detection = {
         enabled = false,
+    },
+    performance = {
+        reset_packpath = false, -- keep the custom runtime path
     },
 })

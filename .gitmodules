@@ -13,3 +13,6 @@
 [submodule "tmux/.config/tmux/plugins/tpm"]
 	path = tmux/.config/tmux/plugins/tpm
 	url = git@github.com:tmux-plugins/tpm.git
+[submodule "nvim/.config/nvim/pack/zen-mode/start/zen-mode.nvim"]
+	path = nvim/.config/nvim/pack/submodules/start/zen-mode.nvim
+	url = git@github.com:folke/zen-mode.nvim.git

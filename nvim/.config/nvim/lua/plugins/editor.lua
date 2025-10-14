@@ -1,3 +1,9 @@
+require("zen-mode").setup({
+    window = {
+        width = 180,
+    },
+})
+
 vim.diagnostic.config({
   -- Use the default configuration
   -- virtual_lines = true
@@ -23,17 +29,6 @@ return {
                 scope = { show_start = false, show_end = false },
             }
         end
-    },
-    {
-        "folke/zen-mode.nvim",
-        keys = {
-            {"<leader>z", ":ZenMode<CR>", desc = "Toggles zen mode", silent = true}
-        },
-        opts = {
-            window = {
-                width = 180,
-            },
-        }
     },
     {
         "tpope/vim-surround",
