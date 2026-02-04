@@ -43,10 +43,14 @@ function git_worktree_add() {
         return
     fi
 
-    if [ "${PWD##*/}" != "master" ]; then
-        echo "${RED}You need to be in the master folder to use this command${NC}"
-        return
-    fi
+    case "${PWD##*/}" in
+        master|main)
+            ;;
+        *)
+            echo "${RED}You need to be in the master or main folder to use this command${NC}"
+            return
+            ;;
+    esac
 
     # Pull latest changes and check for errors
     echo "Pulling latest changes from remote..."
