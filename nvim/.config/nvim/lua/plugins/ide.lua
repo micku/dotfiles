@@ -1,16 +1,6 @@
 ---- Try to behave like an IDE
 return {
     {
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require("project_nvim").setup({
-                patterns = { ".git" },
-                silent_chdir = false,
-                detection_methods = { "pattern" },
-            })
-        end
-    },
-    {
         "nvim-tree/nvim-tree.lua",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
