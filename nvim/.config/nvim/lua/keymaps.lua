@@ -16,6 +16,10 @@ map("n", "<Leader>w", ":resize +5<CR>", {desc = "Increase split size horizontall
 map("n", "<Leader>d", ":vertical resize -5<CR>", {desc = "Reduce split size vertically", silent = true})
 map("n", "<Leader>a", ":vertical resize +5<CR>", {desc = "Increase split size vertically", silent = true })
 
+-- Move between tabs
+map("n", "<C-TAB>", "gt", { desc = "Move to next tab", noremap = false, silent = true })
+map("n", "<C-S-TAB>", "gT", { desc = "Move to prev tab", noremap = false, silent = true })
+
 -- Move by displayed lines, not by fisical lines
 map("n", "k", "gk", {silent = true, desc = "Move up by displayed lines"})
 map("n", "j", "gj", {silent = true, desc = "Move down by displayed lines"})
