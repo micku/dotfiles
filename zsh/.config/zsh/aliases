@@ -4,6 +4,7 @@ alias free='free -m'                                            # Show sizes in 
 alias gitu='git add . && git commit && git push'
 alias g='git'
 alias gwa='git_worktree_add'
+alias gwr='git_worktree_add_remote'
 alias la='ls -al'
 alias v='nvim'
 

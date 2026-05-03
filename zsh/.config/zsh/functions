@@ -70,3 +70,41 @@ function git_worktree_add() {
     window_id=$(tmux new-window -c ../$branch_name -n $branch_name -P)
     tmux send-keys -t $window_id C-z 'nvim' Enter
 }
+
+function git_worktree_add_remote() {
+    RED='\033[0;31m'
+    NC='\033[0m' # No Color
+
+    branch_name=$1
+    if [ $# -eq 0 ]; then
+        echo "${RED}Provide a branch name${NC}"
+        return
+    fi
+
+    case "${PWD##*/}" in
+        master|main)
+            ;;
+        *)
+            echo "${RED}You need to be in the master or main folder to use this command${NC}"
+            return
+            ;;
+    esac
+
+    # Pull latest changes and check for errors
+    echo "Pulling latest changes from remote..."
+    if ! git pull; then
+        echo "${RED}Error: Git pull failed. Aborting worktree creation.${NC}"
+        return 1
+    fi
+
+    # Create new worktree with branch
+    echo "Creating new worktree for branch 'origin/$branch_name'..."
+    if ! git worktree add "../$branch_name" "origin/$branch_name"; then
+        echo "${RED}Error: Failed to create worktree${NC}"
+        return 1
+    fi
+
+    tmux new window ../$1
+    window_id=$(tmux new-window -c ../$branch_name -n $branch_name -P)
+    tmux send-keys -t $window_id C-z 'nvim' Enter
+}
