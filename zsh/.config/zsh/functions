@@ -99,7 +99,7 @@ function git_worktree_add_remote() {
 
     # Create new worktree with branch
     echo "Creating new worktree for branch 'origin/$branch_name'..."
-    if ! git worktree add "../$branch_name" "origin/$branch_name"; then
+    if ! git worktree add --track -b "$branch_name" "../$branch_name" "origin/$branch_name"; then
         echo "${RED}Error: Failed to create worktree${NC}"
         return 1
     fi
