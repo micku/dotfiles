@@ -39,15 +39,4 @@ return {
             {"<Leader>tr", "<cmd>lua require('nvim-tree.api').tree.toggle({find_file = true})<cr>", desc = "Show file tree", { noremap=true, silent=true }},
         }
     },
-    {
-        "shortcuts/no-neck-pain.nvim",
-        config = function ()
-            require("no-neck-pain").setup({
-                width = 150,
-                autocmds = {
-                    enableOnVimEnter = true,
-                },
-            })
-        end,
-    },
 }
