@@ -165,6 +165,12 @@ fi
 # fnm
 FNM_PATH="/root/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/root/.local/share/fnm:$PATH"
+  export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
+fi
+
+# opencode
+OPENCODE_PATH="/root/.opencode/bin"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$OPENCODE_PATH:$PATH"
 fi
