@@ -23,28 +23,27 @@ HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=500
 export EDITOR=nvim
-#export VISUAL=/usr/bin/nano
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
 ## Functions
 if [ -f ~/.config/zsh/functions ]; then
     source ~/.config/zsh/functions
 else
-    print "404: ~/.config/zsh/functions not found."
+    print "~/.config/zsh/functions not found."
 fi
 
 ## Keybindings section
 if [ -f ~/.config/zsh/bindings ]; then
     source ~/.config/zsh/bindings
 else
-    print "404: ~/.config/zsh/bindings not found."
+    print "~/.config/zsh/bindings not found."
 fi
 
 ## Alias section 
 if [ -f ~/.config/zsh/aliases ]; then
     source ~/.config/zsh/aliases
 else
-    print "404: ~/.config/zsh/aliases not found."
+    print "~/.config/zsh/aliases not found."
 fi
 
 # Theming section  
@@ -69,23 +68,6 @@ export LESS_TERMCAP_so=$'\E[01;47;34m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-r
-
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /home/michele/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh
-
-export PATH="/usr/local/opt/awscli@1/bin:$PATH"
-
-eval "$(direnv hook zsh)"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -135,6 +117,14 @@ if [[ $- == *i* ]]; then
     fi
 fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ "$TMUX" = "" ]; then tmux; fi
+
+if [[ $(uname) == "Darwin" ]]; then
+    source ~/.zshrc.macos
+fi
+
 export VOLTA_HOME="$HOME/.volta"
 if [ -d "$VOLTA_HOME" ]; then
     export PATH="$VOLTA_HOME/bin:$PATH"
@@ -145,32 +135,18 @@ if [ -d "$GO_HOME" ]; then
     export PATH="$GO_HOME/bin:$PATH"
 fi
 
-. $HOME/.asdf/asdf.sh
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# Add Flow virtual environment to PATH
-export PATH="/home/michele.gargiulo/.flow/venv/bin:$PATH"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [ "$TMUX" = "" ]; then tmux; fi
-
-if [[ $(uname) == "Darwin" ]]; then
-    source ~/.zshrc.macos
-fi
-
-# fnm
 FNM_PATH="/root/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
 
-# opencode
 OPENCODE_PATH="/root/.opencode/bin"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$OPENCODE_PATH:$PATH"
+fi
+
+AWS_PATH="/usr/local/opt/awscli@1/bin"
+if [ -d "$AWS_PATH" ]; then
+    export PATH="$AWS_PATH:$PATH"
 fi
