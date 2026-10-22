@@ -4,7 +4,7 @@ ARG DEBIAN_VERSION=sid
 
 FROM debian:${DEBIAN_VERSION}-slim
 
-ARG EXTRA_PACKAGES="build-essential fzf curl nodejs npm golang-go unzip"
+ARG EXTRA_PACKAGES="build-essential fzf curl nodejs npm golang-go unzip ripgrep"
 ARG NVIM_CONFIG_REPO=https://github.com/micku/dotfiles.git
 ARG NVIM_CONFIG_BRANCH=master
 
