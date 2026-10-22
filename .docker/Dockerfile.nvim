@@ -30,4 +30,5 @@ WORKDIR /workspace
 
 EXPOSE 7681
 
-CMD ["sh", "-c", "exec ttyd -W -c \"$TTYD_CREDENTIAL\" -p 7681 nvim ."]
+CMD ["sh", "-c", \
+  "exec ttyd -W -c \"$TTYD_CREDENTIAL\" -b \"$TTYD_BASE_PATH\" -p 7681 nvim ."]
